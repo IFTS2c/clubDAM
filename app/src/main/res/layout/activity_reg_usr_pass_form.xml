@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#A8E4E8"
-    tools:context=".regUsrPassForm">
+    tools:context=".RegUsrPassForm">
 
     <View
         android:id="@+id/view1"
@@ -97,7 +97,7 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAceptar"
+        android:id="@+id/btnSiguiente"
         android:layout_width="match_parent"
         android:layout_marginLeft="48dp"
         android:layout_marginRight="48dp"
@@ -105,7 +105,7 @@
         android:layout_marginBottom="80dp"
         android:background="@drawable/button_background"
         android:contentDescription="boton Aceptar"
-        android:text="Aceptar"
+        android:text="Siguiente"
         android:textColor="#222222"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -16,7 +16,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.club.tools.toolsVal
 
-class regForm : AppCompatActivity() {
+class RegForm : AppCompatActivity() {
     var bbdd=BBDDusuario(this)
     val t = toolsVal()
     var usr = UsuarioDB()
@@ -52,6 +52,7 @@ class regForm : AppCompatActivity() {
         chkTeammateFitness.setOnClickListener{
             if (chkTeammateFitness.isChecked){
                 chkAsociado.visibility = View.INVISIBLE
+                chkAsociado.isChecked = false
             } else {
                 chkAsociado.visibility = View.VISIBLE
             }
@@ -69,6 +70,10 @@ class regForm : AppCompatActivity() {
             } else {
                 categoria = "c" // cliente
             }
+            if (bbdd.existeEmail(emailText)) {
+                Toast.makeText(this, "Ya existe una cuenta con ese mail, solo se permite una.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             var validInputs = validarRegNomDniEmlInputs(nombreApellidoText,dniText,emailText)
             if (!validInputs.first){
@@ -81,9 +86,9 @@ class regForm : AppCompatActivity() {
 
             var usr:UsuarioDB? = bbdd.leerUnDato(username)
             usr?.let {
-                intent = Intent(this, userForm::class.java)
-                intent.putExtra("username", username)
-                intent.putExtra("nombreApellido", nombreApellidoText)
+                intent = Intent(this, MainActivity::class.java)
+//                intent.putExtra("username", username)
+//                intent.putExtra("nombreApellido", nombreApellidoText)
                 startActivity(intent)
             } ?: run {
                 Toast.makeText(this, "Hubo un error al intentar registrar el usuario en la base de datos", Toast.LENGTH_SHORT).show()

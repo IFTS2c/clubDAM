@@ -4,7 +4,6 @@ import UsuarioDB
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -54,10 +53,17 @@ class MainActivity : AppCompatActivity() {
                 val solicRead:UsuarioDB = bbdd.leerUnDato(inputUser)
                 Log.i("Modulo1","solicRead ${solicRead.toString()}, inputPass ${inputPass}")
                 if (solicRead.password == inputPass){
-                    val intent = Intent(this, userForm::class.java)
-                    intent.putExtra("username",solicRead.username)
-                    intent.putExtra("nombreApellido",solicRead.nombreApellido)
-                    startActivity(intent)
+                    if (solicRead.categoria == "c") {
+                        val intent = Intent(this, UserForm::class.java)
+                        intent.putExtra("username",solicRead.username)
+                        intent.putExtra("nombreApellido",solicRead.nombreApellido)
+                        startActivity(intent)
+                    } else {
+                        val intent = Intent(this, AdminForm::class.java)
+                        intent.putExtra("username",solicRead.username)
+                        intent.putExtra("nombreApellido",solicRead.nombreApellido)
+                        startActivity(intent)
+                    }
                 } else {
                     Log.i("Modulo1","Error en login")
                 }
@@ -68,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnReg.setOnClickListener {
-            val intent = Intent(this, regUsrPassForm::class.java)
+            val intent = Intent(this, RegUsrPassForm::class.java)
             startActivity(intent)
         }
 

@@ -3,6 +3,7 @@ package com.example.club
 import UsuarioDB
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
@@ -12,10 +13,13 @@ import java.util.ArrayList
 var bbdd="UsuarioDB";
 //val usr:UsuarioDB= UsuarioDB()
 
-class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,4) {
+class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,1) {
     override fun onCreate(db: SQLiteDatabase?) {
         //db?.execSQL("drop table if exists UsuarioDB")
-        val crearTablaUsr ="create table UsuarioDB(id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(16), password VARCHAR(16), nombreApellido VARCHAR(30), dni VARCHAR(9), email VARCHAR(30), asociado BOOLEAN, codAct INTEGER, categoria VARCHAR(1))"
+        val crearTablaUsr ="create table UsuarioDB(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "username VARCHAR(16), password VARCHAR(16), nombreApellido VARCHAR(30), " +
+                "dni VARCHAR(9), email VARCHAR(30), asociado BOOLEAN, codAct INTEGER, " +
+                "categoria VARCHAR(1), FOREIGN KEY (codAct) REFERENCES ActividadDB (cod_actividad))"
         db?.execSQL(crearTablaUsr)
     }
 
@@ -75,7 +79,7 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,4) {
     fun leerUnDato(userName:String):UsuarioDB{
         var usRes:UsuarioDB = UsuarioDB()
         val db =  this.readableDatabase
-        val sql = "select * from UsuarioDB where username == '${userName}'"
+        val sql = "select * from UsuarioDB where username = '${userName}'"
         var resultado = db.rawQuery(sql,null)
         if (resultado.moveToFirst()) {
             usRes.id = resultado.getInt(0)
@@ -93,6 +97,31 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,4) {
         }
         Log.i("modulo1","NO encontro nada")
         return usRes
+    }
+    fun existeUsrName(username:String): Boolean{
+        val db =  this.readableDatabase
+        val sql = "SELECT * FROM UsuarioDB WHERE username = '${username}'"
+        var res: Cursor = db.rawQuery(sql,null)
+        //var filasEncontradas:Int = db.count("UsuarioDB","username = ?", arrayOf(username))
+        if (res.moveToFirst()) {
+            res.close()
+            return true
+        } else {
+            res.close()
+            return false
+        }
+    }
+    fun existeEmail(email:String): Boolean{
+        val db =  this.readableDatabase
+        val sql = "SELECT * FROM UsuarioDB WHERE email = '${email}'"
+        var res: Cursor = db.rawQuery(sql,null)
+        if (res.moveToFirst()) {
+            res.close()
+            return true
+        } else {
+            res.close()
+            return false
+        }
     }
 
     fun actualizar(id:String,username:String,password:String):String{

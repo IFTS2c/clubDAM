@@ -15,7 +15,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.club.tools.toolsVal
 
-class regUsrPassForm : AppCompatActivity() {
+class RegUsrPassForm : AppCompatActivity() {
 
     var bbdd=BBDDusuario(this)
     var t = toolsVal()
@@ -29,7 +29,7 @@ class regUsrPassForm : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val btnAceptar = findViewById<AppCompatButton>(R.id.btnAceptar)
+        val btnSiguiente = findViewById<AppCompatButton>(R.id.btnSiguiente)
 
         var usernameInput: EditText = findViewById<AppCompatEditText>(R.id.inputUser)
         usernameInput.onFocusChangeListener = View.OnFocusChangeListener {
@@ -44,7 +44,7 @@ class regUsrPassForm : AppCompatActivity() {
                 view, hasFocus -> if (hasFocus) { pass2Input.hint = "" }
         }
 
-        btnAceptar.setOnClickListener{
+        btnSiguiente.setOnClickListener{
             val username:String = usernameInput.text.toString()
             val pass1:String = pass1Input.text.toString()
             val pass2:String = pass2Input.text.toString()
@@ -52,6 +52,11 @@ class regUsrPassForm : AppCompatActivity() {
 
             if (!validarRegUsrPassInputs(username,pass1,pass2).first) {
                 Toast.makeText(this, validarRegUsrPassInputs(username,pass1,pass2).second, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (bbdd.existeUsrName(username)) {
+                Toast.makeText(this, "Ese usuario ya existe", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -66,7 +71,7 @@ class regUsrPassForm : AppCompatActivity() {
                     Toast.makeText(this, "Usuario existente", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 } else {
-                    val intent = Intent(this, regForm::class.java)
+                    val intent = Intent(this, RegForm::class.java)
                     intent.putExtra("username", username)
                     intent.putExtra("password", pass1)
                     startActivity(intent)
