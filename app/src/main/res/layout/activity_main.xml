@@ -36,45 +36,54 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/shut" /> -->
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/inputUser"
-        android:inputType="text"
-        android:hint="Username"
-        android:textColor="#999999"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginLeft="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="104dp"
-        android:background="@drawable/input_background"
-        android:contentDescription="Campo para nombre de usuario"
-        android:elevation="15dp"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintBottom_toTopOf="@+id/btnLogin">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/inputPass"
-        android:inputType="text"
-        android:hint="Password"
-        android:textColor="#999999"
-        android:textAlignment="textStart"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/input_background"
-        android:elevation="15dp"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputUser"
-        tools:ignore="MissingConstraints" />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/inputUser"
+            android:inputType="text"
+            android:hint="Username"
+            android:textColor="#999999"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_height="65dp"
+            android:background="@drawable/input_background"
+            android:contentDescription="Campo para nombre de usuario"
+            android:elevation="15dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/inputPass"
+            android:inputType="text"
+            android:hint="Password"
+            android:textColor="#999999"
+            android:textAlignment="textStart"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/input_background"
+            android:elevation="15dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputUser"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"

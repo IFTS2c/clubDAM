@@ -17,7 +17,7 @@ import com.example.club.tools.toolsVal
 
 class MainActivity : AppCompatActivity() {
 
-    var bbdd=BBDDusuario(this)
+    var bdUs=BBDDusuario(this)
     var bdAct = BBDDactividad(this)
     var t = toolsVal()
     private lateinit var d: CargaInicialBD
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             Log.i("CRUD","no hay registros de actividades")
         }
-        var us = bbdd.leer()
+        var us = bdUs.leer()
         if (us != null) {
             for (i in us){
                 Log.i("CRUD","registro act. ${i}")
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             val inputPass:String = etxPass.text.toString()
 
             if (inputUser.isNotEmpty() && inputPass.isNotEmpty()){
-                val solicRead:UsuarioDB = bbdd.leerUnDato(inputUser)
+                val solicRead:UsuarioDB = bdUs.leerUnDato(inputUser)
                 Log.i("Modulo1","solicRead ${solicRead.toString()}, inputPass ${inputPass}")
                 if (solicRead.password == inputPass){
                     if (solicRead.categoria == "c") {
@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity() {
     */
     private fun crearDatos(username:String, password:String, nombreApellido:String, dni:String, email:String, asociado:Boolean, categoria:String):Boolean{
         val usr = UsuarioDB(username,password,nombreApellido, dni, email, asociado, categoria)
-        val res = bbdd.insertar(usr)
+        val res = bdUs.insertar(usr)
         Log.i("CRUD", "[[MAIN]] ${res.toString()}")
         return res
     }

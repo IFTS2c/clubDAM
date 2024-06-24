@@ -8,7 +8,7 @@
     android:background="#A8E4E8"
     tools:context=".RegForm">
 
-    <View
+    <!-- <View
         android:id="@+id/view1"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
@@ -34,87 +34,109 @@
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/shut" />
+        app:srcCompat="@drawable/shut" /> -->
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="123dp"
         android:layout_height="84dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view1"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/header2" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:text="Registro"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegistrarFn">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/inputnombre"
-        android:inputType="text"
-        android:hint="Nombre y Apellido"
-        android:textColor="#999999"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="45dp"
-        android:background="@drawable/input_background"
-        android:contentDescription="Campo para nombre de usuario"
-        android:elevation="15dp"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:ignore="MissingConstraints" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/inputDni"
-        android:inputType="number"
-        android:hint="Dni"
-        android:textColor="#999999"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/input_background"
-        android:elevation="15dp"
-        android:textAlignment="textStart"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputnombre" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/inputEmail"
-        android:inputType="textEmailAddress"
-        android:hint="Email"
-        android:textAlignment="textStart"
-        android:textColor="#999999"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/input_background"
-        android:elevation="15dp"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputDni"
-        tools:ignore="MissingConstraints" />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/inputnombre"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:background="@drawable/input_background"
+            android:contentDescription="Campo para nombre de usuario"
+            android:elevation="15dp"
+            android:hint="Nombre y Apellido"
+            android:inputType="text"
+            android:padding="8dp"
+            android:textColor="#999999"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/inputDni"
+            android:inputType="number"
+            android:hint="Dni"
+            android:textColor="#999999"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/input_background"
+            android:elevation="15dp"
+            android:textAlignment="textStart"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputnombre" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/inputEmail"
+            android:inputType="textEmailAddress"
+            android:hint="Email"
+            android:textAlignment="textStart"
+            android:textColor="#999999"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/input_background"
+            android:elevation="15dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputDni"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/chkCategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="60dp"
+            android:text="Trabajas en Fitness"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
+
+        <CheckBox
+            android:id="@+id/chkAsociarse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="60dp"
+            android:text="Asociarse"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chkCategoria" />
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRegistrarFn"
@@ -123,9 +145,9 @@
         android:layout_marginLeft="48dp"
         android:layout_marginRight="48dp"
         android:background="@drawable/button_background"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="64dp"
         android:contentDescription="@string/boton_de_login"
-        android:text="Registrar"
+        android:text="Registrase"
         android:textColor="#222222"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -148,26 +170,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" /> -->
-    <CheckBox
-        android:id="@+id/chkCategoria"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="60dp"
-        android:text="Trabajas en Fitness"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
 
-    <CheckBox
-        android:id="@+id/chkAsociarse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:layout_marginTop="0dp"
-        android:layout_marginLeft="60dp"
-        android:text="Asociarse"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chkCategoria" />
 </androidx.constraintlayout.widget.ConstraintLayout>
