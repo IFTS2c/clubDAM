@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
@@ -60,24 +61,17 @@ class MainActivity : AppCompatActivity() {
 
         val btnLogin = findViewById<AppCompatButton>(R.id.btnLogin)
         val btnReg = findViewById<AppCompatButton>(R.id.btnReg)
-        var etxUser: EditText = findViewById<AppCompatEditText>(R.id.inputUser)
-//        etxUser.onFocusChangeListener = View.OnFocusChangeListener {
-//                view, hasFocus -> if (hasFocus) { etxUser.hint = "" }
-//        }
-        var etxPass:EditText = findViewById<AppCompatEditText>(R.id.inputPass)
-//        etxPass.onFocusChangeListener = View.OnFocusChangeListener {
-//                view, hasFocus -> if (hasFocus) { etxPass.hint = "" }
-//        }
+        var textUser: EditText = findViewById<AppCompatEditText>(R.id.inputUser)
+        var textPass:EditText = findViewById<AppCompatEditText>(R.id.inputPass)
 
-        //val us= bbdd.leerUnDato(etxUser.text.toString())
 
         btnLogin.setOnClickListener{
-            val inputUser:String = etxUser.text.toString()
-            val inputPass:String = etxPass.text.toString()
+            var inputUser:String = textUser.text.toString()
+            var inputPass:String = textPass.text.toString()
 
             if (inputUser.isNotEmpty() && inputPass.isNotEmpty()){
                 val solicRead:UsuarioDB = bdUs.leerUnDato(inputUser)
-                Log.i("Modulo1","solicRead ${solicRead.toString()}, inputPass ${inputPass}")
+                Log.i("LOGIN","solicRead ${solicRead.toString()}, inputPass ${inputPass}")
                 if (solicRead.password == inputPass){
                     if (solicRead.categoria == "c") {
                         val intent = Intent(this, UserForm::class.java)
@@ -91,11 +85,16 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                 } else {
-                    Log.i("Modulo1","Error en login")
+                    Toast.makeText(this,"El usuario o clave son incorrectas",Toast.LENGTH_SHORT).show()
+                    Log.i("LOGIN","Error en login")
+                    textUser.text.clear()
+                    textPass.text.clear()
+                    textUser.requestFocus()
+                    return@setOnClickListener
                 }
             } else {
+                Toast.makeText(this,"Tenés que ingresar usuario y clave",Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-                ////startActivity(intent)
             }
         }
 

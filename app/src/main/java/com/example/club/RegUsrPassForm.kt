@@ -32,17 +32,17 @@ class RegUsrPassForm : AppCompatActivity() {
         val btnSiguiente = findViewById<AppCompatButton>(R.id.btnSiguiente)
 
         var usernameInput: EditText = findViewById<AppCompatEditText>(R.id.inputUser)
-        usernameInput.onFocusChangeListener = View.OnFocusChangeListener {
-                view, hasFocus -> if (hasFocus) { usernameInput.hint = "" }
-        }
+//        usernameInput.onFocusChangeListener = View.OnFocusChangeListener {
+//                view, hasFocus -> if (hasFocus) { usernameInput.hint = "" }
+//        }
         var pass1Input: EditText = findViewById<AppCompatEditText>(R.id.inputPass1)
-        pass1Input.onFocusChangeListener = View.OnFocusChangeListener {
-                view, hasFocus -> if (hasFocus) { pass1Input.hint = "" }
-        }
+//        pass1Input.onFocusChangeListener = View.OnFocusChangeListener {
+//                view, hasFocus -> if (hasFocus) { pass1Input.hint = "" }
+//        }
         var pass2Input: EditText = findViewById<AppCompatEditText>(R.id.inputPass2)
-        pass2Input.onFocusChangeListener = View.OnFocusChangeListener {
-                view, hasFocus -> if (hasFocus) { pass2Input.hint = "" }
-        }
+//        pass2Input.onFocusChangeListener = View.OnFocusChangeListener {
+//                view, hasFocus -> if (hasFocus) { pass2Input.hint = "" }
+//        }
 
         btnSiguiente.setOnClickListener{
             val username:String = usernameInput.text.toString()
@@ -57,25 +57,33 @@ class RegUsrPassForm : AppCompatActivity() {
 
             if (bbdd.existeUsrName(username)) {
                 Toast.makeText(this, "Ese usuario ya existe", Toast.LENGTH_SHORT).show()
+                usernameInput.text.clear()
+                pass1Input.text.clear()
+                pass2Input.text.clear()
+                usernameInput.requestFocus()
                 return@setOnClickListener
             }
 
             if (pass1 != pass2) {
                 Log.i("Modulo1", "No coinciden ambas password")
                 Toast.makeText(this, "No coinciden ambas password", Toast.LENGTH_SHORT).show()
+                pass1Input.text.clear()
+                pass2Input.text.clear()
+                pass1Input.requestFocus()
                 return@setOnClickListener
             } else {
-                var us:UsuarioDB = bbdd.leerUnDato(username)
-                if (us.username == username) {
-                    Log.i("Modulo1", "Usuario existente")
-                    Toast.makeText(this, "Usuario existente", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                } else {
+//                var us:UsuarioDB = bbdd.leerUnDato(username)
+//                if (us.username == username) {
+//                    Log.i("Modulo1", "Usuario existente")
+//                    Toast.makeText(this, "Usuario existente", Toast.LENGTH_SHORT).show()
+//
+//                    return@setOnClickListener
+//                } else {
                     val intent = Intent(this, RegForm::class.java)
                     intent.putExtra("username", username)
                     intent.putExtra("password", pass1)
                     startActivity(intent)
-                }
+//                }
             }
         }
     }

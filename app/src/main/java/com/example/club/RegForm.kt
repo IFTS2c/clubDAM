@@ -71,6 +71,8 @@ class RegForm : AppCompatActivity() {
                 categoria = "c" // cliente
             }
             if (bbdd.existeEmail(emailText)) {
+                emailInput.text.clear()
+                emailInput.requestFocus()
                 Toast.makeText(this, "Ya existe una cuenta con ese mail, solo se permite una.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
