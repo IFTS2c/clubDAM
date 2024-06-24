@@ -11,12 +11,17 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.club.datos.BBDDactividad
+import com.example.club.datos.CargaInicialBD
 import com.example.club.tools.toolsVal
 
 class MainActivity : AppCompatActivity() {
 
     var bbdd=BBDDusuario(this)
+    var bdAct = BBDDactividad(this)
     var t = toolsVal()
+    private lateinit var d: CargaInicialBD
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +33,30 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-//        crearDatos("Seba", "dddd", "Seba Mam", "12312334", "SebMa@gmail.com", true, "c")
-//        crearDatos("Tian", "ffff", "Tian Rod", "13333334", "tianro@gmail.com", false,"c")
-//        crearDatos("jos","xxxx","Jose Alvarez", "12123123", "jesalv@gmail.com", false, "e")
+        d = CargaInicialBD(this)
+
+
+//        crearDatos("martasan", "martasan", "Marta Sanchez", "13333334", "martasan@gmail.com", false,"c")
+//        crearDatos("maridelro", "maridelro", "Maria del Rosario", "13333334", "mariarosario@gmail.com", true,"c")
+//        crearDatos("administrador","admini","Jose Alvarez", "12123123", "jesalv@gmail.com", false, "e")
+        d.iniciarOnoBBDD()
+
+        var act = bdAct.leerDatos()
+        if (act != null) {
+            for (i in act){
+                Log.i("CRUD","registro act. ${i}")
+            }
+        } else {
+            Log.i("CRUD","no hay registros de actividades")
+        }
+        var us = bbdd.leer()
+        if (us != null) {
+            for (i in us){
+                Log.i("CRUD","registro act. ${i}")
+            }
+        } else {
+            Log.i("CRUD","no hay registros de usuarios")
+        }
 
         val btnLogin = findViewById<AppCompatButton>(R.id.btnLogin)
         val btnReg = findViewById<AppCompatButton>(R.id.btnReg)
@@ -43,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 //                view, hasFocus -> if (hasFocus) { etxPass.hint = "" }
 //        }
 
-        val us= bbdd.leerUnDato(etxUser.text.toString())
+        //val us= bbdd.leerUnDato(etxUser.text.toString())
 
         btnLogin.setOnClickListener{
             val inputUser:String = etxUser.text.toString()

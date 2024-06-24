@@ -13,7 +13,7 @@ import java.util.ArrayList
 var bbdd="UsuarioDB";
 //val usr:UsuarioDB= UsuarioDB()
 
-class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,1) {
+class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,5) {
     override fun onCreate(db: SQLiteDatabase?) {
         //db?.execSQL("drop table if exists UsuarioDB")
         val crearTablaUsr ="create table UsuarioDB(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -138,10 +138,10 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,1) {
         }
     }
 
-    fun borrar( id:String){
+    fun borrar( id:Int){
         val db = this.writableDatabase
-        if (id.length>0) {
-            db.delete("UsuarioDB","id=?", arrayOf(id))
+        if (id>0) {
+            db.delete("UsuarioDB","id=?", arrayOf(id.toString()))
         }
     }
 
