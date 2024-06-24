@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import android.graphics.Bitmap
+import com.journeyapps.barcodescanner.BarcodeEncoder
 
 val bdCarnet = "CarnetDB"
 

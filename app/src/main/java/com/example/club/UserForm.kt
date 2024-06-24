@@ -1,5 +1,6 @@
 package com.example.club
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -34,7 +35,7 @@ class UserForm : AppCompatActivity() {
             categoriaUser.text = "No Socio"
         }
 
-        userNameText.text = "Bienvenido " + nombreApellido
+        userNameText.text = "Hola " + nombreApellido
 
         val btnActividad = findViewById<TextView>(R.id.btnActividad)
         val btnPagar = findViewById<TextView>(R.id.btnPagar)
@@ -49,7 +50,9 @@ class UserForm : AppCompatActivity() {
         }
 
         btnCarnet.setOnClickListener(){
-
+            var intent = Intent(this,Carnet::class.java)
+            intent.putExtra("username",username)
+            startActivity(intent)
         }
 
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

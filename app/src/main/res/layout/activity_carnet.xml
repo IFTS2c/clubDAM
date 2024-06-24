@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A8E4E8"
+    tools:context=".Carnet">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="123dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/header2" />
+
+    <LinearLayout
+        android:id="@+id/dataCarnet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+
+        app:layout_constraintTop_toBottomOf="@+id/logo">
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo"
+            tools:text="Rosario Ramirez" />
+
+        <TextView
+            android:id="@+id/dni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Socio"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userName"
+            tools:text="DNI: 12341234" />
+
+        <LinearLayout
+            android:id="@+id/llSocId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dni">
+
+            <TextView
+                android:id="@+id/asociado"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Socio"
+                android:textAlignment="textEnd"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toStartOf="@+id/idUsr"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Socio  -" />
+
+            <TextView
+                android:id="@+id/idUsr"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Socio"
+                android:textAlignment="textStart"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                tools:text="  ID: 3" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/codAct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Socio"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llSocId"
+            tools:text="actividad: Funcional" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ViewQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataCarnet">
+
+    </ImageView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
