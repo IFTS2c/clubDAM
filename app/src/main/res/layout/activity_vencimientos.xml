@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#A8E4E8"
-    tools:context=".Actividades">
+    tools:context=".Vencimientos">
 
     <ImageView
         android:id="@+id/logo"
@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/header2" />
 
     <LinearLayout
-        android:id="@+id/llDataUsr"
+        android:id="@+id/llInfoUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -47,16 +47,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userName"
-            tools:text="Socio" />
+            tools:text="Administrador" />
 
         <TextView
-            android:id="@+id/actividad"
+            android:id="@+id/textActividad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp"
+            android:text="Vencimientos y deudas acumuladas"
             android:textSize="20sp"
-            tools:text="Funcional"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cajaBotones"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvActividades"
+        android:id="@+id/rvVencimientos"
         android:layout_width="match_parent"
         android:layout_height="360dp"
         android:background="@drawable/button_background"
@@ -76,9 +76,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llDataUsr"
+        app:layout_constraintTop_toBottomOf="@+id/llInfoUser"
         app:layout_constraintVertical_bias="0.491" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

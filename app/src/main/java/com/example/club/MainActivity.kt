@@ -13,6 +13,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.club.datos.BBDDactividad
+import com.example.club.datos.BBDDcuota
 import com.example.club.datos.CargaInicialBD
 import com.example.club.tools.toolsVal
 
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     var bdUs=BBDDusuario(this)
     var bdAct = BBDDactividad(this)
+    var bdCuo = BBDDcuota(this)
     var t = toolsVal()
     private lateinit var d: CargaInicialBD
 
@@ -37,11 +39,10 @@ class MainActivity : AppCompatActivity() {
         d = CargaInicialBD(this)
 
 
-//        crearDatos("martasan", "martasan", "Marta Sanchez", "13333334", "martasan@gmail.com", false,"c")
-//        crearDatos("maridelro", "maridelro", "Maria del Rosario", "13333334", "mariarosario@gmail.com", true,"c")
-//        crearDatos("administrador","admini","Jose Alvarez", "12123123", "jesalv@gmail.com", false, "e")
+// INICIALIZACION DE REGISTROS EN bd SI ES QUE NO HAY NADA
         d.iniciarOnoBBDD()
 
+// IMPRESION EN LOGCAT DE REGISTROS EN BD
         var act = bdAct.leerDatos()
         if (act != null) {
             for (i in act){
@@ -58,7 +59,16 @@ class MainActivity : AppCompatActivity() {
         } else {
             Log.i("CRUD","no hay registros de usuarios")
         }
+        var cu = bdCuo.leerDatos()
+        if (cu != null) {
+            for (i in cu){
+                Log.i("CRUD","registro act. ${i}")
+            }
+        } else {
+            Log.i("CRUD","no hay registros de usuarios")
+        }
 
+// LOGICA DE ACTIVITY MAIN
         val btnLogin = findViewById<AppCompatButton>(R.id.btnLogin)
         val btnReg = findViewById<AppCompatButton>(R.id.btnReg)
         var textUser: EditText = findViewById<AppCompatEditText>(R.id.inputUser)

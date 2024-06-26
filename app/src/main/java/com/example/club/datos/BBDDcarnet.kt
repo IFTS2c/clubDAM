@@ -1,11 +1,13 @@
 package com.example.club.datos
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import android.graphics.Bitmap
+import android.util.Log
 import com.journeyapps.barcodescanner.BarcodeEncoder
 
 val bdCarnet = "CarnetDB"

@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.club.tools.toolsVal
+import androidx.appcompat.app.AlertDialog
+import com.example.club.datos.BBDDactividad
 
 class UserForm : AppCompatActivity() {
-    val bbdd = BBDDusuario(this)
-    val t = toolsVal()
+    val bdUsr = BBDDusuario(this)
+    val bdAct = BBDDactividad(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +25,13 @@ class UserForm : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         val username:String = intent.extras?.getString("username").orEmpty()
-        val nombreApellido:String = intent.extras?.getString("nombreApellido").orEmpty()
-        val userSelected = bbdd.leerUnDato(username)
+        //val nombreApellido:String = intent.extras?.getString("nombreApellido").orEmpty()
+        val userSelected = bdUsr.leerUnDato(username)
         val userNameText = findViewById<TextView>(R.id.userName)
         val categoriaUser = findViewById<TextView>(R.id.categoria)
+        val actividad = findViewById<TextView>(R.id.actividad)
 
         if (userSelected.asociado){
             categoriaUser.text = "Socio"
@@ -35,18 +39,25 @@ class UserForm : AppCompatActivity() {
             categoriaUser.text = "No Socio"
         }
 
-        userNameText.text = "Hola " + nombreApellido
+        userNameText.text = "Hola " + userSelected.nombreApellido
+
+        var act = bdAct.leerUnDato(userSelected.codAct)
+        actividad.text = act?.nombre
 
         val btnActividad = findViewById<TextView>(R.id.btnActividad)
         val btnPagar = findViewById<TextView>(R.id.btnPagar)
         val btnCarnet = findViewById<TextView>(R.id.btnCarnet)
 
         btnActividad.setOnClickListener(){
-
+            var intent = Intent(this,Actividades::class.java)
+            intent.putExtra("username",username)
+            startActivity(intent)
         }
 
         btnPagar.setOnClickListener(){
-
+            var intent = Intent(this,Pagar::class.java)
+            intent.putExtra("username",username)
+            startActivity(intent)
         }
 
         btnCarnet.setOnClickListener(){
@@ -55,15 +66,11 @@ class UserForm : AppCompatActivity() {
             startActivity(intent)
         }
 
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }*/
+
+
     }
     /*fun leerUnDato(username:String):UsuarioDB{
-        val bbdd=BBDD(this)
-        var res:UsuarioDB = bbdd.leerUnDato(username)
+        var res:UsuarioDB = bdUsr.leerUnDato(username)
         Log.i("modulo1",res.toString())
         return res
     }*/

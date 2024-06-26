@@ -13,12 +13,12 @@ import java.util.ArrayList
 var bbdd="UsuarioDB";
 //val usr:UsuarioDB= UsuarioDB()
 
-class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,5) {
+class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,6) {
     override fun onCreate(db: SQLiteDatabase?) {
         //db?.execSQL("drop table if exists UsuarioDB")
         val crearTablaUsr ="create table UsuarioDB(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "username VARCHAR(16), password VARCHAR(16), nombreApellido VARCHAR(30), " +
-                "dni VARCHAR(9), email VARCHAR(30), asociado BOOLEAN, codAct INTEGER, " +
+                "dni VARCHAR(9), email VARCHAR(30), asociado INTEGER, codAct INTEGER, " +
                 "categoria VARCHAR(1), FOREIGN KEY (codAct) REFERENCES ActividadDB (cod_actividad))"
         db?.execSQL(crearTablaUsr)
     }
@@ -64,7 +64,7 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,5) {
                 usr.nombreApellido = resultado.getString(3)
                 usr.dni = resultado.getString(4)
                 usr.email = resultado.getString(5)
-                usr.asociado = resultado.getString(6) == "true"
+                usr.asociado = resultado.getInt(6) == 1
                 usr.codAct = resultado.getInt(7)
                 usr.categoria = resultado.getString(8)
                 lista.add(usr)

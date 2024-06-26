@@ -9,10 +9,10 @@ import androidx.core.database.getDoubleOrNull
 
 val bdCuota = "CuotaDB"
 
-class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,1) {
+class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,3) {
     override fun onCreate(db: SQLiteDatabase?) {
-        val crearTablaCuota = "CREATE TABLE CuotadDB(id_cuota INTEGER PRIMARY KEY AUTOINCREMENT, id_usuario INTEGER," +
-                "fecha_vto VARCHAR(10), estado_de_pago BOOLEAN, deuda DOUBLE, " +
+        val crearTablaCuota = "CREATE TABLE CuotaDB(id_cuota INTEGER PRIMARY KEY AUTOINCREMENT, id_usuario INTEGER," +
+                "fecha_vto VARCHAR(10), estado_de_pago INTEGER, deuda DOUBLE, " +
                 "FOREIGN KEY (id_usuario) REFERENCES UsuarioDB(id))"
         db?.execSQL(crearTablaCuota)
     }
@@ -21,19 +21,18 @@ class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,1) {
 
     }
 
-    fun insertar(cuota: CuotaDB):Boolean{
+    fun insertar(id_usuario:Int, fecha_vto:String, estado_de_pago:Boolean, deuda:Double):Boolean{
         val db = this.writableDatabase
         val contenedorValores = ContentValues()
 
-        contenedorValores.put("id_cuota", cuota.id_cuota)
-        contenedorValores.put("id_usuario", cuota.id_usuario)
-        contenedorValores.put("fecha_vto", cuota.fecha_vto)
-        contenedorValores.put("estado_de_pago", cuota.estado_de_pago)
-        contenedorValores.put("deuda", cuota.deuda)
+        contenedorValores.put("id_usuario", id_usuario)
+        contenedorValores.put("fecha_vto", fecha_vto)
+        contenedorValores.put("estado_de_pago", estado_de_pago)
+        contenedorValores.put("deuda", deuda)
 
         val resultado = db.insert("CuotaDB", null, contenedorValores)
         if (resultado == -1.toLong()) {
-            Log.i("CRUD", "Falló insercion cuota: ${cuota.toString()}")
+            Log.i("CRUD", "Falló insercion cuota ${id_usuario}")
             return false
         } else {
             return true
@@ -49,7 +48,7 @@ class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,1) {
                 val id_cuota = res.getInt(res.getColumnIndexOrThrow("id_cuota"))
                 val id_usuario = res.getInt(res.getColumnIndexOrThrow("id_usuario"))
                 val fecha_vto = res.getString(res.getColumnIndexOrThrow("fecha_vto"))
-                val estado_de_pago = res.getString(res.getColumnIndexOrThrow("estado_de_pago")) == "true"
+                val estado_de_pago = res.getInt(res.getColumnIndexOrThrow("estado_de_pago")) == 1
                 val deuda = res.getDouble(res.getColumnIndexOrThrow("deuda"))
                 CuotaDB(id_cuota, id_usuario, fecha_vto, estado_de_pago, deuda)
             } else {
@@ -73,7 +72,8 @@ class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,1) {
                     val id_cuota = res.getInt(res.getColumnIndexOrThrow("id_cuota"))
                     val id_usuario = res.getInt(res.getColumnIndexOrThrow("id_usuario"))
                     val fecha_vto = res.getString(res.getColumnIndexOrThrow("fecha_vto"))
-                    val estado_de_pago = res.getString(res.getColumnIndexOrThrow("estado_de_pago")) == "true"
+                    val estado_de_pago = res.getInt(res.getColumnIndexOrThrow("estado_de_pago")) == 1
+                    Log.i("BBDDerror", "que devuelve el boolean ${id_usuario} eDP: ${estado_de_pago}")
                     val deuda = res.getDouble(res.getColumnIndexOrThrow("deuda"))
                     var cuota = CuotaDB(id_cuota, id_usuario, fecha_vto, estado_de_pago, deuda)
                     listaCuotas.add(cuota)
