@@ -72,18 +72,13 @@ class RegUsrPassForm : AppCompatActivity() {
                 pass1Input.requestFocus()
                 return@setOnClickListener
             } else {
-//                var us:UsuarioDB = bbdd.leerUnDato(username)
-//                if (us.username == username) {
-//                    Log.i("Modulo1", "Usuario existente")
-//                    Toast.makeText(this, "Usuario existente", Toast.LENGTH_SHORT).show()
-//
-//                    return@setOnClickListener
-//                } else {
-                    val intent = Intent(this, RegForm::class.java)
-                    intent.putExtra("username", username)
-                    intent.putExtra("password", pass1)
-                    startActivity(intent)
-//                }
+                usernameInput.text.clear()
+                pass1Input.text.clear()
+                pass2Input.text.clear()
+                val intent = Intent(this, RegForm::class.java)
+                intent.putExtra("username", username)
+                intent.putExtra("password", pass1)
+                startActivity(intent)
             }
         }
     }

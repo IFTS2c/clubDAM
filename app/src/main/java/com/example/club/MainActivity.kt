@@ -68,11 +68,14 @@ class MainActivity : AppCompatActivity() {
             Log.i("CRUD","no hay registros de usuarios")
         }
 
+
 // LOGICA DE ACTIVITY MAIN
         val btnLogin = findViewById<AppCompatButton>(R.id.btnLogin)
         val btnReg = findViewById<AppCompatButton>(R.id.btnReg)
         var textUser: EditText = findViewById<AppCompatEditText>(R.id.inputUser)
         var textPass:EditText = findViewById<AppCompatEditText>(R.id.inputPass)
+        textUser.text.clear()
+        textPass.text.clear()
 
 
         btnLogin.setOnClickListener{
@@ -84,11 +87,15 @@ class MainActivity : AppCompatActivity() {
                 Log.i("LOGIN","solicRead ${solicRead.toString()}, inputPass ${inputPass}")
                 if (solicRead.password == inputPass){
                     if (solicRead.categoria == "c") {
+                        textUser.text.clear()
+                        textPass.text.clear()
                         val intent = Intent(this, UserForm::class.java)
                         intent.putExtra("username",solicRead.username)
                         intent.putExtra("nombreApellido",solicRead.nombreApellido)
                         startActivity(intent)
                     } else {
+                        textUser.text.clear()
+                        textPass.text.clear()
                         val intent = Intent(this, AdminForm::class.java)
                         intent.putExtra("username",solicRead.username)
                         intent.putExtra("nombreApellido",solicRead.nombreApellido)

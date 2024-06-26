@@ -26,12 +26,14 @@ class CargaInicialBD (context: Context){
     fun hayActividadesOCargar(res : MutableList<ActividadDB>){
         if (res.isEmpty()) {
             BDact.insertar("no hay actividad asignada"," "," ",0,0.0,0.0)
-            BDact.insertar("Funcional", "lu-mi-vi", "18:00",2, 3000.0, 1000.0)
-            BDact.insertar("Yoga", "ma-ju-sa", "19:00", 1, 3500.0, 1200.0)
-            BDact.insertar("Pilates", "lu-mi-vi", "10:00", 2, 3500.0, 1200.0)
-            BDact.insertar("Spinning", "ma-ju-sa", "9:00", 1, 3000.0, 1000.0)
-            BDact.insertar("Dance", "lu-mi-vi", "20:00", 1, 3000.0, 1000.0)
-            BDact.insertar("Streaching", "ma-ju-sa", "11:00", 0, 3700.0, 1300.0)
+            BDact.insertar("Funcional", "lu-mi-vi", "18:00",0, 3000.0, 1000.0)
+            BDact.insertar("Yoga", "ma-ju-sa", "19:00", 0, 3500.0, 1200.0)
+            BDact.insertar("Pilates", "lu-mi-vi", "10:00", 0, 3500.0, 1200.0)
+            BDact.insertar("Spinning", "ma-ju-sa", "9:00", 0, 3000.0, 1000.0)
+            BDact.insertar("Dance", "lu-mi-vi", "20:00", 0, 3000.0, 1000.0)
+            BDact.insertar("Stretching", "ma-ju-sa", "11:00", 0, 3700.0, 1300.0)
+            BDact.insertar("Boulder", "lu-mi-vi", "19:00", 0, 4000.0, 1500.0)
+            BDact.insertar("Aparatos", "ma-ju-sa", "0:00", 0, 3700.0, 1300.0)
         }
     }
     fun hayCuotasOCargar(res: MutableList<CuotaDB>) {

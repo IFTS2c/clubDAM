@@ -8,8 +8,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.club.adapter.ActAdapter
 import com.example.club.datos.BBDDactividad
-
 class Actividades : AppCompatActivity() {
 
     val bdUsr = BBDDusuario(this)
@@ -18,11 +18,7 @@ class Actividades : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_actividades)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        initActividadesRecyclerView()
 
         val username:String = intent.extras?.getString("username").orEmpty()
         val userSelected = bdUsr.leerUnDato(username)
@@ -36,13 +32,17 @@ class Actividades : AppCompatActivity() {
             categoriaUser.text = "No Socio"
         }
 
-        userNameText.text = "Hola " + userSelected.nombreApellido
+        userNameText.text = userSelected.nombreApellido
 
-        var act = bdAct.leerUnDato(userSelected.codAct)
-        actividad.text = act?.nombre
 
+
+    }
+
+    private fun initActividadesRecyclerView(){
+        val actividadesListCompleta = bdAct.leerDatos()
+        val actividadesList = actividadesListCompleta.drop(1)
         val recyclerView = findViewById<RecyclerView>(R.id.rvActividades)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
-        //recyclerView.adapter = actAdapter(actCards)
+        recyclerView.adapter = ActAdapter(actividadesList)
     }
 }

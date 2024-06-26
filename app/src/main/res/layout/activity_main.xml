@@ -65,7 +65,7 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/inputPass"
-            android:inputType="text"
+            android:inputType="textWebPassword"
             android:hint="Password"
             android:textColor="#999999"
             android:textAlignment="textStart"
