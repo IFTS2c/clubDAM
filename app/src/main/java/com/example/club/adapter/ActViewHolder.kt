@@ -2,10 +2,12 @@ package com.example.club.adapter
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -29,6 +31,7 @@ class ActViewHolder(val view: View) : ViewHolder(view) {
 
         itemView.setOnClickListener {
             Toast.makeText(view.context,"${actividad.nombre}: ${actividad.cupo} cupo/s libre.", Toast.LENGTH_SHORT).show()
+            DialogInputName(view.context, actividad)
         }
     }
 
@@ -57,5 +60,33 @@ class ActViewHolder(val view: View) : ViewHolder(view) {
             9 -> foto = ContextCompat.getDrawable(context, R.drawable.aparatos_image)
         }
         return  listOfNotNull(color, foto)
+    }
+
+    fun DialogInputName(context: Context, actividad: ActividadDB) {
+        val builder = AlertDialog.Builder(context)
+        val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = layoutInflater.inflate(R.layout.dialog_actividad_seleccionada, null)
+
+        var imagen = view.findViewById<ImageView>(R.id.ivDialogActSelect)
+        var titleBox = view.findViewById<TextView>(R.id.TitleActSelec)
+        val btnAtras = view.findViewById<TextView>(R.id.btnAtras)
+        val btnAceptar = view.findViewById<TextView>(R.id.btnAceptar)
+        var dias = view.findViewById<TextView>(R.id.actDias)
+        var horario = view.findViewById<TextView>(R.id.actHorario)
+        var precioSocio = view.findViewById<TextView>(R.id.actPrecioSocio)
+        var precioNoSOcio = view.findViewById<TextView>(R.id.actPrecioNoSocio)
+        var cupo = view.findViewById<TextView>(R.id.actCupo)
+
+        var colorItem = colorAndPicture(view.context, actividad)[0]
+        var fotoItem = colorAndPicture(view.context, actividad)[1]
+        colorItem.also { btnAtras.background = it }
+        colorItem.also { btnAceptar.background = it }
+        fotoItem.also { imagen.background = it}
+
+
+
+
+        val dialog = builder.setView(view).create()
+        dialog.show()
     }
 }

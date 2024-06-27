@@ -68,7 +68,9 @@ class MainActivity : AppCompatActivity() {
             Log.i("CRUD","no hay registros de usuarios")
         }
 
-
+        var intent = Intent(this,Actividades::class.java)
+        intent.putExtra("username","Tiago Martin")
+        startActivity(intent)
 // LOGICA DE ACTIVITY MAIN
         val btnLogin = findViewById<AppCompatButton>(R.id.btnLogin)
         val btnReg = findViewById<AppCompatButton>(R.id.btnReg)
