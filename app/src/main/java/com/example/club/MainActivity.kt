@@ -70,10 +70,10 @@ class MainActivity : AppCompatActivity() {
         }
 
 // FORZANDO ENTRADA DIRECRTA PARA TESTEAR
-        var intent = Intent(this,Actividades::class.java)
-        intent.putExtra("userId",1)
-        intent.putExtra("codAct",8)
-        startActivity(intent)
+//        var intent = Intent(this,Actividades::class.java)
+//        intent.putExtra("userId",1)
+//        intent.putExtra("codAct",8)
+//        startActivity(intent)
 
 // LOGICA DE ACTIVITY MAIN
         val btnLogin = findViewById<AppCompatButton>(R.id.btnLogin)
