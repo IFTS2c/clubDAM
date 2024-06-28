@@ -47,15 +47,15 @@ class AdminForm : AppCompatActivity() {
 
 
         btnActividad.setOnClickListener{
-            DialogInputName("actividades")
+            DialogInputName("actividades",userSelected.categoria)
         }
 
         btnPagar.setOnClickListener{
-            DialogInputName("pagar")
+            DialogInputName("pagar",userSelected.categoria)
         }
 
         btnCarnet.setOnClickListener{
-            DialogInputName("carnet")
+            DialogInputName("carnet",userSelected.categoria)
 //            var username = ""
 //            val builder = AlertDialog.Builder(this)
 //            val view = layoutInflater.inflate(R.layout.dialog_solicitud_username, null)
@@ -91,7 +91,7 @@ class AdminForm : AppCompatActivity() {
 
 
     }
-    fun DialogInputName(act : String) {
+    fun DialogInputName(act : String, categoria:String) {
         var username = ""
         val builder = AlertDialog.Builder(this)
         val view = layoutInflater.inflate(R.layout.dialog_solicitud_username, null)
@@ -117,6 +117,7 @@ class AdminForm : AppCompatActivity() {
 
                     }
                     intent.putExtra("username",username)
+                    //intent.putExtra("categoria",categoria)
                     startActivity(intent)
                 }
 

@@ -11,4 +11,7 @@
     <color name="c_stretching">#C8AC1F</color>
     <color name="c_spinning">#4EE454</color>
     <color name="c_dance">#F429BB</color>
+    <color name="c_fondo_ppal">#A8E4E8</color>
+    <color name="c_fondo_ppal_claro">#D7EFF1</color>
+    <color name="c_fondo_ppal_oscuro">#82A5A8</color>
 </resources>

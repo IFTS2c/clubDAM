@@ -42,7 +42,28 @@ class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,3) {
     fun leerUnDato(id_cuota: Int): CuotaDB? {
         val db = this.readableDatabase
         var res = db.rawQuery("SELECT * FROM CuotaDB WHERE id_cuota = '${id_cuota}'", null)
-        //res.close()
+        return try {
+            if (res.moveToFirst()) {
+                val id_cuota = res.getInt(res.getColumnIndexOrThrow("id_cuota"))
+                val id_usuario = res.getInt(res.getColumnIndexOrThrow("id_usuario"))
+                val fecha_vto = res.getString(res.getColumnIndexOrThrow("fecha_vto"))
+                val estado_de_pago = res.getInt(res.getColumnIndexOrThrow("estado_de_pago")) == 1
+                val deuda = res.getDouble(res.getColumnIndexOrThrow("deuda"))
+                CuotaDB(id_cuota, id_usuario, fecha_vto, estado_de_pago, deuda)
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            Log.e ("CRUD","Error al leer ActividadDB ${e.message}")
+            null
+        } finally {
+            res.close()
+        }
+    }
+    fun BuscarUltimaCuota(idUsuario: Int): CuotaDB? {
+        val db = this.readableDatabase
+        var res = db.rawQuery("SELECT * FROM CuotaDB WHERE id_usuario = '${idUsuario}' " +
+                "ORDER By fecha_vto DESC LIMIT 1", null)
         return try {
             if (res.moveToFirst()) {
                 val id_cuota = res.getInt(res.getColumnIndexOrThrow("id_cuota"))
@@ -90,6 +111,33 @@ class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,3) {
         }
     }
 
+    fun buscarCuptasDeUsuario(userId:Int): MutableList<CuotaDB> {
+        val db = this.readableDatabase
+        var res = db.rawQuery("SELECT * FROM CuotaDB WHERE id_usuario = '${userId}'", null)
+        var listaCuotas:MutableList<CuotaDB> = mutableListOf()
+        return try {
+            if (res.moveToFirst()) {
+                do {
+                    val id_cuota = res.getInt(res.getColumnIndexOrThrow("id_cuota"))
+                    val id_usuario = res.getInt(res.getColumnIndexOrThrow("id_usuario"))
+                    val fecha_vto = res.getString(res.getColumnIndexOrThrow("fecha_vto"))
+                    val estado_de_pago = res.getInt(res.getColumnIndexOrThrow("estado_de_pago")) == 1
+                    Log.i("BBDDerror", "que devuelve el boolean ${id_usuario} eDP: ${estado_de_pago}")
+                    val deuda = res.getDouble(res.getColumnIndexOrThrow("deuda"))
+                    var cuota = CuotaDB(id_cuota, id_usuario, fecha_vto, estado_de_pago, deuda)
+                    listaCuotas.add(cuota)
+                } while (res.moveToNext())
+                return listaCuotas
+            } else {
+                return listaCuotas
+            }
+        } catch (e: Exception) {
+            Log.e ("CRUD","Error al leer ActividadDB ${e.message}")
+            return listaCuotas
+        } finally {
+            res.close()
+        }
+    }
     fun actualizar(id_cuota: Int, newValues: Map<String, Any?>) : Boolean {
         val db = this.writableDatabase
         val contenedor = ContentValues()

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A8E4E8"
+    android:background="@color/c_fondo_ppal"
     tools:context=".Actividades">
 
     <ImageView
@@ -73,6 +73,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="56dp"
+        android:paddingVertical="4dp"
+        android:background="@color/c_fondo_ppal_claro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"

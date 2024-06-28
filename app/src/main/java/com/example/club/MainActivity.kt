@@ -1,6 +1,7 @@
 package com.example.club
 
 import UsuarioDB
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -68,9 +69,12 @@ class MainActivity : AppCompatActivity() {
             Log.i("CRUD","no hay registros de usuarios")
         }
 
+// FORZANDO ENTRADA DIRECRTA PARA TESTEAR
         var intent = Intent(this,Actividades::class.java)
-        intent.putExtra("username","Tiago Martin")
+        intent.putExtra("userId",1)
+        intent.putExtra("codAct",8)
         startActivity(intent)
+
 // LOGICA DE ACTIVITY MAIN
         val btnLogin = findViewById<AppCompatButton>(R.id.btnLogin)
         val btnReg = findViewById<AppCompatButton>(R.id.btnReg)
@@ -94,6 +98,7 @@ class MainActivity : AppCompatActivity() {
                         val intent = Intent(this, UserForm::class.java)
                         intent.putExtra("username",solicRead.username)
                         intent.putExtra("nombreApellido",solicRead.nombreApellido)
+                        categoriaGloval(solicRead.categoria)
                         startActivity(intent)
                     } else {
                         textUser.text.clear()
@@ -101,6 +106,7 @@ class MainActivity : AppCompatActivity() {
                         val intent = Intent(this, AdminForm::class.java)
                         intent.putExtra("username",solicRead.username)
                         intent.putExtra("nombreApellido",solicRead.nombreApellido)
+                        categoriaGloval(solicRead.categoria)
                         startActivity(intent)
                     }
                 } else {
@@ -164,5 +170,11 @@ class MainActivity : AppCompatActivity() {
         val res = bdUs.insertar(usr)
         Log.i("CRUD", "[[MAIN]] ${res.toString()}")
         return res
+    }
+    private fun categoriaGloval(categoria:String){
+        val categGloval = getSharedPreferences("catGloval", Context.MODE_PRIVATE)
+        val editor = categGloval.edit()
+        editor.putString("categoria", categoria)
+        editor.apply()
     }
 }

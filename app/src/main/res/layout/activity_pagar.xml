@@ -19,11 +19,12 @@
         app:srcCompat="@drawable/header2" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/logo">
 
         <TextView
@@ -37,12 +38,11 @@
             tools:text="Rosario Ramirez" />
 
         <TextView
-            android:id="@+id/categoria"
+            android:id="@+id/asociadoOno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textSize="18dp"
-            android:text="Socio"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userName"
@@ -55,12 +55,122 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:textSize="20sp"
-            tools:text="Funcional"
             app:layout_constraintBottom_toTopOf="@+id/cajaBotones"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/categoria" />
+            app:layout_constraintTop_toBottomOf="@+id/categoria"
+            tools:text="Funcional" />
 
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/montoAPagar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Monto: $ 4000.00" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/montoAPagar"
+            app:layout_constraintVertical_bias="0.0">
+
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginVertical="0dp"
+                android:layout_marginBottom="16dp">
+
+                <RadioButton
+                    android:id="@+id/rbTarjeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tarjeta"
+                    android:textSize="20sp"/>
+
+                <RadioButton
+                    android:id="@+id/rbModo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Transferencia"
+                    android:textSize="20sp"/>
+
+                <RadioButton
+                    android:id="@+id/rbEfectivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Efectivo"
+                    android:visibility="invisible"
+                    android:textSize="20sp"/>
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/btnAtras"
+                    android:layout_width="142dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@color/c_boulder"
+                    android:paddingVertical="4dp"
+                    android:text="Atras"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btnAceptar"
+                    android:layout_width="142dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginLeft="6dp"
+                    android:background="@color/c_boulder"
+                    android:paddingVertical="4dp"
+                    android:text="Aceptar"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

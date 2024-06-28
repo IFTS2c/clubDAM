@@ -1,5 +1,6 @@
 package com.example.club
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -24,10 +25,14 @@ class Actividades : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_actividades)
-        initActividadesRecyclerView()
-
         val username:String = intent.extras?.getString("username").orEmpty()
         val userSelected = bdUsr.leerUnDato(username)
+
+        initActividadesRecyclerView(userSelected.id)
+
+        val categGloval = getSharedPreferences("catGloval", Context.MODE_PRIVATE)
+        val catGloval = categGloval.getString("categoria", null)
+
         val userNameText = findViewById<TextView>(R.id.userName)
         val categoriaUser = findViewById<TextView>(R.id.categoria)
 
@@ -39,16 +44,14 @@ class Actividades : AppCompatActivity() {
 
         userNameText.text = userSelected.nombreApellido
 
-
-
     }
 
-    private fun initActividadesRecyclerView(){
+    private fun initActividadesRecyclerView(userId:Int){
         val actividadesListCompleta = bdAct.leerDatos()
         val actividadesList = actividadesListCompleta.drop(1)
         val recyclerView = findViewById<RecyclerView>(R.id.rvActividades)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
-        recyclerView.adapter = ActAdapter(actividadesList)
+        recyclerView.adapter = ActAdapter(actividadesList, userId)
     }
 
 }
