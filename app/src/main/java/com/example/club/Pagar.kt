@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.club.datos.ActividadDB
 import com.example.club.datos.BBDDactividad
 import com.example.club.datos.BBDDcuota
+import com.example.club.datos.bdCuota
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -61,7 +62,7 @@ class Pagar : AppCompatActivity() {
         val btnPagar = findViewById<TextView>(R.id.btnPagar)
 
         nombreBox.text = userSelected.nombreApellido
-        asociadBox
+
         if (catGloval == "e") {
             var radBntEfectivo = findViewById<RadioButton>(R.id.rbEfectivo)
             radBntEfectivo.visibility = View.VISIBLE
@@ -76,12 +77,40 @@ class Pagar : AppCompatActivity() {
         }
 
 
-        var monto: Double
+        var monto: Double = 0.0
+        var montoBox = findViewById<TextView>(R.id.montoAPagar)
 // LOGICA DEUDA Y PAGAR
-        if (!userSelected.asociado){
-            monto = pagaNoSocio(userSelected, actividadSelected)
+        var cuota = bdCuo.buscarUltimaCuota(userSelected.id)
+        var fechaHoy = LocalDate.now()
+        if (cuota != null){
+            var fechaVtoParsed = LocalDate.parse(cuota.fecha_vto)
+            Log.i("pagar", "fechaVtoParsed.isAfter(fechaHoy) ${fechaVtoParsed.isAfter(fechaHoy) && cuota.deuda == 0.0}")
+            if (fechaVtoParsed.isAfter(fechaHoy) && cuota.deuda == 0.0){
+//                monto = 0.0
+//                montoBox.text = "Monto: $ ${monto}0"
+                Toast.makeText(this, "Tienes una cuota vigente, se vence ${cuota.fecha_vto}", Toast.LENGTH_SHORT).show()
+                if (!userSelected.asociado){
+                    monto = pagaNoSocio(userSelected, actividadSelected)
+                } else {
+                    monto = pagaSocio(userSelected, actividadSelected)
+                }
+
+            } else {
+                if (!userSelected.asociado){
+                    monto = pagaNoSocio(userSelected, actividadSelected)
+                } else {
+                    monto = pagaSocio(userSelected, actividadSelected)
+                }
+            }
         } else {
-            monto = pagaSocio(userSelected, actividadSelected)
+            if (actividadSelected != null){
+                if (!userSelected.asociado){
+                    monto = pagaNoSocio(userSelected, actividadSelected)
+                } else {
+                    monto = pagaSocio(userSelected, actividadSelected)
+                }
+                //montoBox.text = "Monto: $ ${monto}0"
+            }
         }
 
         btnPagar.setOnClickListener {
@@ -120,16 +149,18 @@ class Pagar : AppCompatActivity() {
         return montoAPagar
     }
     fun pagar(userId:Int, codAct:Int, monto:Double, formaDePago:String){
-        Log.i("actUsr", "anes ${bdUsr.leerUnDato(userId).codAct}")
+        //Log.i("actUsr", "anes ${bdUsr.leerUnDato(userId).codAct}")
         bdUsr.actualizar(userId, mapOf("codAct" to codAct))
-        Log.i("actUsr", "despues ${bdUsr.leerUnDato(userId).codAct}")
-        var fecha_vto = LocalDate.now().plusMonths(1).withDayOfMonth(1)
-//        val formatoFecha = DateTimeFormatter.ofPattern("d-M-yyyy")
-//        var fecha_vto_formateada = fecha_vto.format(formatoFecha)
-        Log.i("actUsr", "fechaFormato ${fecha_vto}")
-        Log.i("actUsr", "Cuota antes  ${bdCuo.buscarUltimaCuota(userId)}")
+        //Log.i("actUsr", "despues ${bdUsr.leerUnDato(userId).codAct}")
+        var asociado = bdUsr.leerUnDato(userId).asociado
+
+        var fecha_vto = if (asociado) LocalDate.now().plusMonths(1).withDayOfMonth(1) else
+            LocalDate.now().plusDays(1)
+
+        //Log.i("actUsr", "fechaFormato ${fecha_vto}")
+        //Log.i("actUsr", "Cuota antes  ${bdCuo.buscarUltimaCuota(userId)}")
         bdCuo.insertar(userId, fecha_vto.toString(), true, 0.0)
-        Log.i("actUsr", "Cuota despues  ${bdCuo.buscarUltimaCuota(userId)}")
+        //Log.i("actUsr", "Cuota despues  ${bdCuo.buscarUltimaCuota(userId)}")
         var intent = Intent(this@Pagar, Comprobante::class.java)
         intent.putExtra("userId", userId)
         intent.putExtra("codAct", codAct)

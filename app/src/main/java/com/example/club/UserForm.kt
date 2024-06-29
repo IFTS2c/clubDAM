@@ -40,6 +40,9 @@ class UserForm : AppCompatActivity() {
         val userNameText = findViewById<TextView>(R.id.userName)
         val asociadoUser = findViewById<TextView>(R.id.asociado)
         val actividad = findViewById<TextView>(R.id.actividad)
+        val vtoTv = findViewById<TextView>(R.id.tvVto)
+
+        val formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy")
 
         if (userSelected.asociado){
             asociadoUser.text = "Socio"
@@ -47,7 +50,9 @@ class UserForm : AppCompatActivity() {
             var deuda = cuota?.deuda
 
             if (cuota != null) {
-
+                var fechaVtoParsed = LocalDate.parse(cuota.fecha_vto)
+                var fechaVto = fechaVtoParsed.format(formatoFecha)
+                vtoTv.text = "Ultimo vto.: ${fechaVto}"
                 var fechaVtoCuota = LocalDate.parse(cuota!!.fecha_vto)
                 var fechaHoy = LocalDate.now()
                 Log.i("fecha", "LocalDate.now ${fechaHoy}")
@@ -73,9 +78,14 @@ class UserForm : AppCompatActivity() {
                     }
                 }
             }
-
         } else {
-            asociadoUser.text = "No Socio"
+            var cuota = bdCuo.buscarUltimaCuota(userSelected.id)
+            if (cuota != null) {
+                var fechaVtoParsed = LocalDate.parse(cuota.fecha_vto)
+                var fechaVto = fechaVtoParsed.format(formatoFecha)
+                vtoTv.text = "Ultimo vto.: ${fechaVto}"
+                asociadoUser.text = "No Socio"
+            }
         }
 
         userNameText.text = "Hola " + userSelected.nombreApellido
