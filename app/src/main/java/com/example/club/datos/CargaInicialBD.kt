@@ -19,13 +19,13 @@ class CargaInicialBD (context: Context){
 
     fun hayUsuariosOCargar(res : MutableList<UsuarioDB>){
         if (res.isEmpty()) {
-            crearDatosUs("tiagomar", "tiagomar", "Tiago Martin", "13333334", "tianro@gmail.com", false,"c")
-            crearDatosUs("maridelro", "maridelro", "Maria del Rosario", "13333334", "mariarosario@gmail.com", true,"c")
-            crearDatosUs("clarui", "clarui", "Clara Ruiz", "13333334", "clararuiz@gmail.com", true,"c")
-            crearDatosUs("julrom", "julrom", "Julio Romero", "13333334", "julro@gmail.com", true,"c")
-            crearDatosUs("carlala", "carlala", "Carla Latorre", "13333334", "carlala@gmail.com", true,"c")
-            crearDatosUs("raulji", "raulji", "Raul Jimenez", "13333334", "rauljim@gmail.com", true,"c")
-            crearDatosUs("administrador","admini","Jose Alvarez", "12123123", "jesalv@gmail.com", false, "e")
+            crearDatosUs("tiagomar", "tiagomar", "Tiago Martin", "13567834", "tianro@gmail.com", false,"c")
+            crearDatosUs("maridelro", "maridelro", "Maria del Rosario", "34233334", "mariarosario@gmail.com", true,"c")
+            crearDatosUs("clarui", "clarui", "Clara Ruiz", "23243334", "clararuiz@gmail.com", true,"c")
+            crearDatosUs("julrom", "julrom", "Julio Romero", "17833334", "julro@gmail.com", true,"c")
+            crearDatosUs("carlala", "carlala", "Carla Latorre", "19873334", "carlala@gmail.com", true,"c")
+            crearDatosUs("raulji", "raulji", "Raul Jimenez", "43565334", "rauljim@gmail.com", true,"c")
+            crearDatosUs("administrador","admini","Jose Alvarez", "37123123", "jesalv@gmail.com", false, "e")
             bdUs.actualizar(3, mapOf("codAct" to 5))
             bdUs.actualizar(2, mapOf("codAct" to 2))
             bdUs.actualizar(3, mapOf("codAct" to 4))

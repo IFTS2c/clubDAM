@@ -136,43 +136,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        /*fun leerDatos(username:String):UsuarioDB{
-            var bbdd=BBDD(this)
-            var res:UsuarioDB = bbdd.leerUno(username)
-            Log.i("modulo1",res.toString())
-            return res
-        }
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }*/
-
-
-
     }
 
-    /*fun leerUnDato(username:String):UsuarioDB{
-        val bbdd=BBDD(this)
-        val res:UsuarioDB = bbdd.leerUnDato(username)
-        Log.i("modulo1",res.toString())
-        return res
-    }
 
-    fun leerDatos():MutableList<UsuarioDB>{
-        val resList = bbdd.leer()
-        if (resList.size>0) {
-            for (i in 0..resList.size-1){
-                Log.i("modulo1", "LeerTodos => id: ${resList[i].id} username: ${resList[i].username} pass: ${resList[i].password} nombreApellido: ${resList[i].nombreApellido} dni: ${resList[i].dni} email: ${resList[i].email} asociado: ${resList[i].asociado}")
-            }
-            return resList
-        } else {
-            Log.i("Modulo1", "no hay datos ${resList}")
-            Toast.makeText(this, "No hay datos coincidentes con la busqueda", Toast.LENGTH_SHORT).show()
-            return resList
-        }
-    }
-    */
     private fun crearDatos(username:String, password:String, nombreApellido:String, dni:String, email:String, asociado:Boolean, categoria:String):Boolean{
         val usr = UsuarioDB(username,password,nombreApellido, dni, email, asociado, categoria)
         val res = bdUs.insertar(usr)
