@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="380dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="#E0D6CD"
+    android:gravity="center_horizontal" >
+
+    <TextView
+        android:id="@+id/titleVto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Se vencio tu cuota!" />
+
+    <TextView
+        android:id="@+id/tvDeudaPrevia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Deuda previa: $ 3000.00"
+        android:textSize="16sp"
+        android:layout_marginTop="24dp"
+        android:paddingHorizontal="32dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleVto" />
+    <TextView
+        android:id="@+id/tvLeyenda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Se sumara la deuda a tu eleccion"
+        android:textSize="11sp"
+        android:layout_marginTop="0dp"
+        android:paddingHorizontal="32dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDeudaPrevia" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLeyenda">
+
+        <TextView
+            android:id="@+id/tvTextActSelec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:paddingHorizontal="32dp"
+            android:text="Actividad seleccionada:"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleVto" />
+
+        <TextView
+            android:id="@+id/tvNameActividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:paddingHorizontal="32dp"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleVto"
+            tools:text="Boulder" />
+
+        <TextView
+            android:id="@+id/btnRenovAct"
+            android:layout_width="182dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/c_boulder"
+            android:paddingVertical="8dp"
+            android:text="Renovar Actividad"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnCambiarAct"
+            android:layout_width="182dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/c_boulder"
+            android:paddingVertical="8dp"
+            android:text="Cambiar Actividad"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnCancelarAct"
+            android:layout_width="182dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/c_boulder"
+            android:paddingVertical="8dp"
+            android:text="Cancelar Actividad"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

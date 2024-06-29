@@ -13,7 +13,7 @@ import java.util.ArrayList
 var bbdd="UsuarioDB";
 //val usr:UsuarioDB= UsuarioDB()
 
-class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,6) {
+class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,7) {
     override fun onCreate(db: SQLiteDatabase?) {
         //db?.execSQL("drop table if exists UsuarioDB")
         val crearTablaUsr ="create table UsuarioDB(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -147,17 +147,25 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,6) {
         }
     }
 
-    fun actualizar(id:String,username:String,password:String):String{
+    fun actualizar(id:Int, newValues: Map<String, Any?>):Boolean{
         val db = this.writableDatabase
-        var contenedorValores = ContentValues()
-        contenedorValores.put("username", username)
-        contenedorValores.put("password", password)
-        var resultado = db.update("UsuarioDB", contenedorValores, "id=?", arrayOf(id))
+        val contenedor = ContentValues()
+        for ((columna, valor) in newValues) {
+            when (valor) {
+                is String -> contenedor.put(columna,valor)
+                is Int -> contenedor.put(columna, valor)
+                is Double -> contenedor.put(columna, valor)
+            }
+        }
+        val res = db.update("UsuarioDB", contenedor,
+            "id = ?", arrayOf(id.toString()))
 
-        if (resultado>0) {
-            return "Actualizacion realizada"
+        if (res>0) {
+            Log.i("CRUD","Actualizacion realizada")
+            return true
         } else {
-            return "No se realizó la actualización"
+            Log.i("CRUD","No se realizó la actualización")
+            return false
         }
     }
 
@@ -167,6 +175,5 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,6) {
             db.delete("UsuarioDB","id=?", arrayOf(id.toString()))
         }
     }
-
 
 }

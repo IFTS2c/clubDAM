@@ -18,110 +18,85 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/header2" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/logo">
-
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logo"
-            tools:text="Rosario Ramirez" />
-
-        <TextView
-            android:id="@+id/asociadoOno"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userName"
-            tools:text="Socio" />
-
-        <TextView
-            android:id="@+id/textActividad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/cajaBotones"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/categoria"
-            tools:text="Funcional" />
-
-    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="48dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="48dp"
-        android:padding="16dp"
         android:background="@drawable/background_actividad"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/logo">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/logo">
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo"
+                tools:text="Rosario Ramirez" />
+
+            <TextView
+                android:id="@+id/asociadoOno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userName"
+                tools:text="Socio" />
+
+            <TextView
+                android:id="@+id/textActividad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/cajaBotones"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoria"
+                tools:text="Funcional" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/montoAPagar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="28sp"
-            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
             tools:text="Monto: $ 4000.00" />
 
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/formaDePago"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/montoAPagar"
-            tools:layout_editor_absoluteX="40dp">
+            tools:text="Forma de pago: Tarjeta" />
 
-            <RadioButton
-                android:id="@+id/rbModo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Transferencia"
-                android:textSize="20sp" />
-
-            <RadioButton
-                android:id="@+id/rbTarjeta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tarjeta"
-                android:textSize="20sp" />
-
-            <RadioButton
-                android:id="@+id/rbEfectivo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Efectivo"
-                android:textSize="20sp"
-                android:visibility="invisible" />
-        </RadioGroup>
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -149,14 +124,14 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/btnPagar"
+                android:id="@+id/btnGuardar"
                 android:layout_width="142dp"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginLeft="6dp"
                 android:background="@color/c_boulder"
                 android:paddingVertical="6dp"
-                android:text="Pagar"
+                android:text="Guardar"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20sp"

@@ -6,7 +6,7 @@ class UsuarioDB {
     var dni:String = ""
     var email:String = ""
     var asociado:Boolean = false
-    var codAct:Int = 0
+    var codAct:Int = 1
     var categoria: String = ""
 
     constructor(){}

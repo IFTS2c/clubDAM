@@ -109,6 +109,7 @@ class ActViewHolder(val view: View, val userId: Int) : ViewHolder(view) {
             intent.putExtra("userId", userId)
             intent.putExtra("codAct", actividad.cod_act)
             context.startActivity(intent)
+            dialog.dismiss()
         }
 
         btnAtras.setOnClickListener {

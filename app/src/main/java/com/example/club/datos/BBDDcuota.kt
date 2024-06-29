@@ -60,7 +60,7 @@ class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,3) {
             res.close()
         }
     }
-    fun BuscarUltimaCuota(idUsuario: Int): CuotaDB? {
+    fun buscarUltimaCuota(idUsuario: Int): CuotaDB? {
         val db = this.readableDatabase
         var res = db.rawQuery("SELECT * FROM CuotaDB WHERE id_usuario = '${idUsuario}' " +
                 "ORDER By fecha_vto DESC LIMIT 1", null)
@@ -111,7 +111,7 @@ class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,3) {
         }
     }
 
-    fun buscarCuptasDeUsuario(userId:Int): MutableList<CuotaDB> {
+    fun buscarCuotasDeUsuario(userId:Int): MutableList<CuotaDB> {
         val db = this.readableDatabase
         var res = db.rawQuery("SELECT * FROM CuotaDB WHERE id_usuario = '${userId}'", null)
         var listaCuotas:MutableList<CuotaDB> = mutableListOf()
