@@ -40,7 +40,7 @@ class Comprobante : AppCompatActivity() {
         var montoTv = findViewById<TextView>(R.id.montoAPagar)
         var formaDePagoTv = findViewById<TextView>(R.id.formaDePago)
         val btnAtras = findViewById<TextView>(R.id.btnAtras)
-        val btnPagar = findViewById<TextView>(R.id.btnGuardar)
+        val btnGuardar = findViewById<TextView>(R.id.btnGuardar)
 
         nombreBox.text = userSelected.nombreApellido
         asociadBox.text = if(userSelected.asociado) "Socio" else "No Socio"
