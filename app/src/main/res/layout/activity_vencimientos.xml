@@ -22,9 +22,9 @@
         android:id="@+id/llInfoUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/logo">
 
         <TextView
@@ -38,12 +38,12 @@
             tools:text="Rosario Ramirez" />
 
         <TextView
-            android:id="@+id/categoria"
+            android:id="@+id/titleAdmini"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18dp"
+            android:layout_marginTop="8dp"
             android:text="Socio"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userName"
@@ -53,7 +53,7 @@
             android:id="@+id/textActividad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:text="Vencimientos y deudas acumuladas"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -67,11 +67,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvVencimientos"
         android:layout_width="match_parent"
-        android:layout_height="360dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="24dp"
         android:background="@drawable/button_background"
         android:padding="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginLeft="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"

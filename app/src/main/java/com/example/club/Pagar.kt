@@ -17,15 +17,16 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.club.datos.ActividadDB
 import com.example.club.datos.BBDDactividad
 import com.example.club.datos.BBDDcuota
-import com.example.club.datos.bdCuota
+import com.example.club.datos.DataBaseHelper
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class Pagar : AppCompatActivity() {
 
-    val bdUsr = BBDDusuario(this)
-    val bdAct = BBDDactividad(this)
-    val bdCuo = BBDDcuota(this)
+    private lateinit var dbHelper: DataBaseHelper
+    private lateinit var bdUs: BBDDusuario
+    private lateinit var bdAct: BBDDactividad
+    private lateinit var bdCuo: BBDDcuota
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,6 +36,10 @@ class Pagar : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        dbHelper = DataBaseHelper(this)
+        bdUs = BBDDusuario(dbHelper)
+        bdAct = BBDDactividad(dbHelper)
+        bdCuo = BBDDcuota(dbHelper)
 
         val categGloval = getSharedPreferences("catGloval", Context.MODE_PRIVATE)
         val catGloval = categGloval.getString("categoria", null)
@@ -45,9 +50,9 @@ class Pagar : AppCompatActivity() {
         var actividadSelected: ActividadDB
 //REVIASMOS SI ENTRAMOS A ESTA SECCION DESDE ACTIVIDAD CON UN USUARIO O A PAGAR UNA DEUDA O CON UN ADMINISTRADOR
         if (userId != 0 ) {
-            userSelected = bdUsr.leerUnDato(userId)
+            userSelected = bdUs.leerUnDato(userId)
         } else {
-            userSelected = bdUsr.leerUnDato(username)
+            userSelected = bdUs.leerUnDato(username)
         }
         if (cod_act != 0) {
             actividadSelected = bdAct.leerUnDato(cod_act)!!
@@ -164,9 +169,9 @@ class Pagar : AppCompatActivity() {
     }
     fun pagar(userId:Int, codAct:Int, monto:Double, formaDePago:String){
         //Log.i("actUsr", "anes ${bdUsr.leerUnDato(userId).codAct}")
-        bdUsr.actualizar(userId, mapOf("codAct" to codAct))
+        bdUs.actualizar(userId, mapOf("codAct" to codAct))
         //Log.i("actUsr", "despues ${bdUsr.leerUnDato(userId).codAct}")
-        var asociado = bdUsr.leerUnDato(userId).asociado
+        var asociado = bdUs.leerUnDato(userId).asociado
 
         var fecha_vto = if (asociado) LocalDate.now().plusMonths(1).withDayOfMonth(1) else
             LocalDate.now().plusDays(1)

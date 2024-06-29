@@ -14,10 +14,16 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.club.datos.BBDDactividad
+import com.example.club.datos.BBDDcuota
+import com.example.club.datos.DataBaseHelper
 import com.example.club.tools.toolsVal
 
 class RegForm : AppCompatActivity() {
-    var bbdd=BBDDusuario(this)
+    private lateinit var dbHelper: DataBaseHelper
+    private lateinit var bdUs: BBDDusuario
+    private lateinit var bdAct: BBDDactividad
+    private lateinit var bdCuo: BBDDcuota
     val t = toolsVal()
     var usr = UsuarioDB()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +36,10 @@ class RegForm : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        dbHelper = DataBaseHelper(this)
+        bdUs = BBDDusuario(dbHelper)
+        bdAct = BBDDactividad(dbHelper)
+        bdCuo = BBDDcuota(dbHelper)
 
         val username:String = intent.extras?.getString("username").orEmpty()
         val password:String = intent.extras?.getString("password").orEmpty()
@@ -70,7 +80,7 @@ class RegForm : AppCompatActivity() {
             } else {
                 categoria = "c" // cliente
             }
-            if (bbdd.existeEmail(emailText)) {
+            if (bdUs.existeEmail(emailText)) {
                 emailInput.text.clear()
                 emailInput.requestFocus()
                 Toast.makeText(this, "Ya existe una cuenta con ese mail, solo se permite una.", Toast.LENGTH_SHORT).show()
@@ -86,7 +96,7 @@ class RegForm : AppCompatActivity() {
             var res = crearDatos(username, password, nombreApellidoText, dniText, emailText, asociado, categoria)
             Log.i("CRUD","Nuevo Usuario = username: ${res.toString()}")
 
-            var usr:UsuarioDB? = bbdd.leerUnDato(username)
+            var usr:UsuarioDB? = bdUs.leerUnDato(username)
             usr?.let {
                 intent = Intent(this, MainActivity::class.java)
 //                intent.putExtra("username", username)
@@ -100,7 +110,7 @@ class RegForm : AppCompatActivity() {
 
     fun crearDatos(username:String, password:String, nombreApellido:String, dni:String, email:String, asociado:Boolean, categoria:String):Boolean{
         var usr = UsuarioDB(username,password,nombreApellido, dni, email, asociado, categoria)
-        var res = bbdd.insertar(usr)
+        var res = bdUs.insertar(usr)
         Log.i("CRUD", "[[crearDatos]] ${res.toString()}")
         return res
     }

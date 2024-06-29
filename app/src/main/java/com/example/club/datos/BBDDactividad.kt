@@ -12,22 +12,11 @@ import androidx.core.database.getStringOrNull
 
 var bbdd="ActividadDB";
 
-class BBDDactividad(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,2) {
-    override fun onCreate(db: SQLiteDatabase?) {
-        //db?.execSQL("drop table if exists UsuarioDB")
-        val crearTablaUsr ="create table ActividadDB(cod_act INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "nombre VARCHAR(16), dia VARCHAR(16), horario VARCHAR(5), " +
-                "cupo INTEGER, precio_socio DOUBLE, precio_no_socio DOUBLE)"
-        db?.execSQL(crearTablaUsr)
-    }
-
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-
-    }
+class BBDDactividad(private val dbHelper: DataBaseHelper) {
 
     fun insertar (nombre:String, dia:String, horario:String, cupo:Int,
                   precio_socio:Double, precio_no_socio:Double): Boolean{
-        val db = this.writableDatabase
+        val db = dbHelper.writableDatabase
         var contenedor = ContentValues()
         contenedor.put("nombre", nombre)
         contenedor.put("dia", dia)
@@ -45,7 +34,7 @@ class BBDDactividad(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,2)
     }
 
     fun leerUnDato(codAct: Int): ActividadDB? {
-        val db = this.readableDatabase
+        val db = dbHelper.readableDatabase
         var res = db.rawQuery("SELECT * FROM ActividadDB WHERE cod_act = '${codAct}'", null)
         //res.close()
         return try {
@@ -70,7 +59,7 @@ class BBDDactividad(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,2)
     }
 
     fun leerDatos(): MutableList<ActividadDB> {
-        val db = this.readableDatabase
+        val db = dbHelper.readableDatabase
         var res = db.rawQuery("SELECT * FROM ActividadDB", null)
         var listaActividades:MutableList<ActividadDB> = mutableListOf()
         return try {
@@ -99,7 +88,7 @@ class BBDDactividad(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,2)
     }
 
     fun actualizar(codAct:Int, newValues: Map<String, Any?>) : Boolean {
-        val db = this.writableDatabase
+        val db = dbHelper.writableDatabase
         val contenedor = ContentValues()
         for ((columna, valor) in newValues) {
             when (valor) {
@@ -120,7 +109,7 @@ class BBDDactividad(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,2)
     }
 
     fun borrar( codAct:Int): Boolean {
-        val db = this.writableDatabase
+        val db = dbHelper.writableDatabase
         if (codAct > 0) {
             var res = db.delete("UsuarioDB", "id=?", arrayOf(codAct.toString()))
             if (res > 0) {

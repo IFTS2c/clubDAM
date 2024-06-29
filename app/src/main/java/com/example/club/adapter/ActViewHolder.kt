@@ -16,11 +16,16 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.club.BBDDusuario
 import com.example.club.Pagar
 import com.example.club.R
 import com.example.club.datos.ActividadDB
+import com.example.club.datos.BBDDactividad
+import com.example.club.datos.BBDDcuota
+import com.example.club.datos.DataBaseHelper
 
 class ActViewHolder(val view: View, val userId: Int) : ViewHolder(view) {
+
 
     var nombreActividad = view.findViewById<TextView>(R.id.tvActividad)
     val photo = view.findViewById<ImageView>(R.id.ivActividad)

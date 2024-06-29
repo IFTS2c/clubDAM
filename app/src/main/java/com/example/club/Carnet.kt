@@ -9,12 +9,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.club.datos.BBDDactividad
+import com.example.club.datos.BBDDcuota
+import com.example.club.datos.DataBaseHelper
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 
 class Carnet : AppCompatActivity() {
 
-    var bdUs=BBDDusuario(this)
+    private lateinit var dbHelper: DataBaseHelper
+    private lateinit var bdUs: BBDDusuario
+    private lateinit var bdAct: BBDDactividad
+    private lateinit var bdCuo: BBDDcuota
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +31,10 @@ class Carnet : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        dbHelper = DataBaseHelper(this)
+        bdUs = BBDDusuario(dbHelper)
+        bdAct = BBDDactividad(dbHelper)
+        bdCuo = BBDDcuota(dbHelper)
 
         val username:String = intent.extras?.getString("username").orEmpty()
 

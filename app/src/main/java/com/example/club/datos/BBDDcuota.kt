@@ -6,23 +6,15 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import androidx.core.database.getDoubleOrNull
+import java.time.LocalDate
 
-val bdCuota = "CuotaDB"
 
-class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,3) {
-    override fun onCreate(db: SQLiteDatabase?) {
-        val crearTablaCuota = "CREATE TABLE CuotaDB(id_cuota INTEGER PRIMARY KEY AUTOINCREMENT, id_usuario INTEGER," +
-                "fecha_vto VARCHAR(10), estado_de_pago INTEGER, deuda DOUBLE, " +
-                "FOREIGN KEY (id_usuario) REFERENCES UsuarioDB(id))"
-        db?.execSQL(crearTablaCuota)
-    }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+class BBDDcuota(private val dbHelper: DataBaseHelper) {
 
-    }
 
     fun insertar(id_usuario:Int, fecha_vto:String, estado_de_pago:Boolean, deuda:Double):Boolean{
-        val db = this.writableDatabase
+        val db = dbHelper.writableDatabase
         val contenedorValores = ContentValues()
 
         contenedorValores.put("id_usuario", id_usuario)
@@ -40,7 +32,7 @@ class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,3) {
     }
 
     fun leerUnDato(id_cuota: Int): CuotaDB? {
-        val db = this.readableDatabase
+        val db = dbHelper.readableDatabase
         var res = db.rawQuery("SELECT * FROM CuotaDB WHERE id_cuota = '${id_cuota}'", null)
         return try {
             if (res.moveToFirst()) {
@@ -61,7 +53,7 @@ class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,3) {
         }
     }
     fun buscarUltimaCuota(idUsuario: Int): CuotaDB? {
-        val db = this.readableDatabase
+        val db = dbHelper.readableDatabase
         var res = db.rawQuery("SELECT * FROM CuotaDB WHERE id_usuario = '${idUsuario}' " +
                 "ORDER By fecha_vto DESC LIMIT 1", null)
         return try {
@@ -84,7 +76,7 @@ class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,3) {
     }
 
     fun leerDatos(): MutableList<CuotaDB> {
-        val db = this.readableDatabase
+        val db = dbHelper.readableDatabase
         var res = db.rawQuery("SELECT * FROM CuotaDB", null)
         var listaCuotas:MutableList<CuotaDB> = mutableListOf()
         return try {
@@ -111,35 +103,69 @@ class BBDDcuota(contexto: Context): SQLiteOpenHelper(contexto, bdCuota,null,3) {
         }
     }
 
-    fun buscarCuotasDeUsuario(userId:Int): MutableList<CuotaDB> {
-        val db = this.readableDatabase
-        var res = db.rawQuery("SELECT * FROM CuotaDB WHERE id_usuario = '${userId}'", null)
-        var listaCuotas:MutableList<CuotaDB> = mutableListOf()
-        return try {
-            if (res.moveToFirst()) {
-                do {
-                    val id_cuota = res.getInt(res.getColumnIndexOrThrow("id_cuota"))
-                    val id_usuario = res.getInt(res.getColumnIndexOrThrow("id_usuario"))
-                    val fecha_vto = res.getString(res.getColumnIndexOrThrow("fecha_vto"))
-                    val estado_de_pago = res.getInt(res.getColumnIndexOrThrow("estado_de_pago")) == 1
-                    Log.i("BBDDerror", "que devuelve el boolean ${id_usuario} eDP: ${estado_de_pago}")
-                    val deuda = res.getDouble(res.getColumnIndexOrThrow("deuda"))
-                    var cuota = CuotaDB(id_cuota, id_usuario, fecha_vto, estado_de_pago, deuda)
-                    listaCuotas.add(cuota)
-                } while (res.moveToNext())
-                return listaCuotas
-            } else {
-                return listaCuotas
-            }
+    fun venceHoy(){
+        val db = dbHelper.readableDatabase
+        var hoy = LocalDate.now()
+        try {
+            var res = db.rawQuery(
+                "SELECT * FROM CuotaDB as c INNER JOIN UsuarioDB as u ON c.id_usuario = u.id", null
+            )
         } catch (e: Exception) {
-            Log.e ("CRUD","Error al leer ActividadDB ${e.message}")
-            return listaCuotas
-        } finally {
-            res.close()
+            Log.e("TAG", "Error al ejecutar la consulta: ${e.message}")
         }
     }
+    fun buscarDeudasYVtos(){//}: MutableList<CuotaDB> {
+        val db = dbHelper.readableDatabase
+        var res = db.rawQuery(
+            "SELECT * FROM (SELECT u.nombreApellido, u.email, c.deuda, c.fecha_vto " +
+                    "FROM CuotaDB as c " +
+                    "INNER JOIN UsuarioDB as u ON c.id_usuario = u.id " +
+                    "WHERE deuda > 0.0) ORDER BY (u.nombreApellido)", null
+        )
+
+
+        if (res.moveToFirst()) {
+            do {
+                val nombreApellido = res.getString(res.getColumnIndexOrThrow("nombreApellido"))
+                val email = res.getString(res.getColumnIndexOrThrow("email"))
+                val deuda = res.getDouble(res.getColumnIndexOrThrow("deuda"))
+                val fechaVto = res.getString(res.getColumnIndexOrThrow("fecha_vto"))
+
+                Log.d(
+                    "TAG",
+                    "Nombre y Apellido: $nombreApellido, Email: $email, Deuda: $deuda, Fecha Vto: $fechaVto"
+                )
+            } while (res.moveToNext())
+        }
+        res.close()
+    }
+//        var listaCuotas:MutableList<CuotaDB> = mutableListOf()
+//        return try {
+//            if (res.moveToFirst()) {
+//                do {
+//                    val id_cuota = res.getInt(res.getColumnIndexOrThrow("id_cuota"))
+//                    val id_usuario = res.getInt(res.getColumnIndexOrThrow("id_usuario"))
+//                    val fecha_vto = res.getString(res.getColumnIndexOrThrow("fecha_vto"))
+//                    val estado_de_pago = res.getInt(res.getColumnIndexOrThrow("estado_de_pago")) == 1
+//                    Log.i("BBDDerror", "que devuelve el boolean ${id_usuario} eDP: ${estado_de_pago}")
+//                    val deuda = res.getDouble(res.getColumnIndexOrThrow("deuda"))
+//                    var cuota = CuotaDB(id_cuota, id_usuario, fecha_vto, estado_de_pago, deuda)
+//                    listaCuotas.add(cuota)
+//                } while (res.moveToNext())
+//                return listaCuotas
+//            } else {
+//                return listaCuotas
+//            }
+//        } catch (e: Exception) {
+//            Log.e ("CRUD","Error al leer ActividadDB ${e.message}")
+//            return listaCuotas
+//        } finally {
+//            res.close()
+//        }
+//    }
+
     fun actualizar(id_cuota: Int, newValues: Map<String, Any?>) : Boolean {
-        val db = this.writableDatabase
+        val db = dbHelper.writableDatabase
         val contenedor = ContentValues()
         for ((columna, valor) in newValues) {
             when (valor) {

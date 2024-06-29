@@ -17,16 +17,25 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.club.adapter.ActAdapter
 import com.example.club.datos.BBDDactividad
+import com.example.club.datos.BBDDcuota
+import com.example.club.datos.DataBaseHelper
+
 class Actividades : AppCompatActivity() {
 
-    val bdUsr = BBDDusuario(this)
-    val bdAct = BBDDactividad(this)
+    private lateinit var dbHelper: DataBaseHelper
+    private lateinit var bdUs: BBDDusuario
+    private lateinit var bdAct: BBDDactividad
+    private lateinit var bdCuo: BBDDcuota
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_actividades)
+        dbHelper = DataBaseHelper(this)
+        bdUs = BBDDusuario(dbHelper)
+        bdAct = BBDDactividad(dbHelper)
+        bdCuo = BBDDcuota(dbHelper)
         val username:String = intent.extras?.getString("username").orEmpty()
-        val userSelected = bdUsr.leerUnDato(username)
+        val userSelected = bdUs.leerUnDato(username)
 
         initActividadesRecyclerView(userSelected.id)
 

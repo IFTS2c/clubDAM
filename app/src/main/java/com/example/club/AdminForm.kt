@@ -12,11 +12,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.club.datos.BBDDactividad
+import com.example.club.datos.BBDDcuota
+import com.example.club.datos.DataBaseHelper
 import com.example.club.tools.toolsVal
 
 class AdminForm : AppCompatActivity() {
 
-    val bdUsr = BBDDusuario(this)
+    private lateinit var dbHelper: DataBaseHelper
+    private lateinit var bdUs: BBDDusuario
+    private lateinit var bdAct: BBDDactividad
+    private lateinit var bdCuo: BBDDcuota
     val t = toolsVal()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +34,14 @@ class AdminForm : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        dbHelper = DataBaseHelper(this)
+        bdUs = BBDDusuario(dbHelper)
+        bdAct = BBDDactividad(dbHelper)
+        bdCuo = BBDDcuota(dbHelper)
 
         val adminname:String = intent.extras?.getString("username").orEmpty()
         val nombreApellido:String = intent.extras?.getString("nombreApellido").orEmpty()
-        val userSelected = bdUsr.leerUnDato(adminname)
+        val userSelected = bdUs.leerUnDato(adminname)
         val userNameText = findViewById<TextView>(R.id.userName)
         val categoriaUser = findViewById<TextView>(R.id.categoria)
 
@@ -86,7 +96,11 @@ class AdminForm : AppCompatActivity() {
         }
 
         btnListaVtos.setOnClickListener{
-
+            // bdCuo.venceHoy()
+            bdCuo.buscarDeudasYVtos()
+//            val intent = Intent(this, Vencimientos::class.java)
+//            intent.putExtra("adminName", nombreApellido)
+//            startActivity(intent)
         }
 
 
@@ -98,7 +112,7 @@ class AdminForm : AppCompatActivity() {
         builder.setView(view)
             .setPositiveButton("Aceptar") { dialog, _ ->
                 username = view.findViewById<EditText>(R.id.inputUsername).text.toString()
-                var userSelected = bdUsr.leerUnDato(username)
+                var userSelected = bdUs.leerUnDato(username)
                 if (userSelected.id == 0){
                     Toast.makeText(this,"No se encontro el usuario", Toast.LENGTH_SHORT).show()
                     Log.i("DIALOG", userSelected.id.toString())

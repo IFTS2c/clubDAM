@@ -16,13 +16,16 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.club.datos.BBDDactividad
 import com.example.club.datos.BBDDcuota
 import com.example.club.datos.CargaInicialBD
+import com.example.club.datos.DataBaseHelper
 import com.example.club.tools.toolsVal
 
 class MainActivity : AppCompatActivity() {
 
-    var bdUs=BBDDusuario(this)
-    var bdAct = BBDDactividad(this)
-    var bdCuo = BBDDcuota(this)
+    private lateinit var dbHelper: DataBaseHelper
+    private lateinit var bdUs: BBDDusuario
+    private lateinit var bdAct: BBDDactividad
+    private lateinit var bdCuo: BBDDcuota
+
     var t = toolsVal()
     private lateinit var d: CargaInicialBD
 
@@ -37,6 +40,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        dbHelper = DataBaseHelper(this)
+        bdUs = BBDDusuario(dbHelper)
+        bdAct = BBDDactividad(dbHelper)
+        bdCuo = BBDDcuota(dbHelper)
+
         d = CargaInicialBD(this)
 
 
@@ -70,9 +78,9 @@ class MainActivity : AppCompatActivity() {
         }
 
 // FORZANDO ENTRADA DIRECRTA PARA TESTEAR
-//        var intent = Intent(this,Actividades::class.java)
-//        intent.putExtra("userId",1)
-//        intent.putExtra("codAct",8)
+//        var intent = Intent(this,AdminForm::class.java)
+//        intent.putExtra("adminName","Jose Alvarez")
+//        //intent.putExtra("codAct",8)
 //        startActivity(intent)
 
 // LOGICA DE ACTIVITY MAIN

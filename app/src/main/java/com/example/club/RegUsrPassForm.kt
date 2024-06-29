@@ -13,11 +13,17 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.club.datos.BBDDactividad
+import com.example.club.datos.BBDDcuota
+import com.example.club.datos.DataBaseHelper
 import com.example.club.tools.toolsVal
 
 class RegUsrPassForm : AppCompatActivity() {
 
-    var bbdd=BBDDusuario(this)
+    private lateinit var dbHelper: DataBaseHelper
+    private lateinit var bdUs: BBDDusuario
+    private lateinit var bdAct: BBDDactividad
+    private lateinit var bdCuo: BBDDcuota
     var t = toolsVal()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +35,11 @@ class RegUsrPassForm : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        dbHelper = DataBaseHelper(this)
+        bdUs = BBDDusuario(dbHelper)
+        bdAct = BBDDactividad(dbHelper)
+        bdCuo = BBDDcuota(dbHelper)
+
         val btnSiguiente = findViewById<AppCompatButton>(R.id.btnSiguiente)
 
         var usernameInput: EditText = findViewById<AppCompatEditText>(R.id.inputUser)
@@ -55,7 +66,7 @@ class RegUsrPassForm : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (bbdd.existeUsrName(username)) {
+            if (bdUs.existeUsrName(username)) {
                 Toast.makeText(this, "Ese usuario ya existe", Toast.LENGTH_SHORT).show()
                 usernameInput.text.clear()
                 pass1Input.text.clear()
@@ -82,16 +93,6 @@ class RegUsrPassForm : AppCompatActivity() {
             }
         }
     }
-    /*fun leerUnDato(username:String):UsuarioDB{
-        var bbdd=BBDD(this)
-        var res:UsuarioDB = bbdd.leerUno(username)
-        if (res == null){
-            Log.i("modulo1","Elemento no encontrado")
-            return res
-        }
-        Log.i("modulo1",res.toString())
-        return res
-    }*/
 
     fun validarRegUsrPassInputs(
         username: String,

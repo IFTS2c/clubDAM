@@ -7,28 +7,16 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.example.club.datos.DataBaseHelper
 import java.util.ArrayList
 
 
-var bbdd="UsuarioDB";
-//val usr:UsuarioDB= UsuarioDB()
 
-class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,7) {
-    override fun onCreate(db: SQLiteDatabase?) {
-        //db?.execSQL("drop table if exists UsuarioDB")
-        val crearTablaUsr ="create table UsuarioDB(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "username VARCHAR(16), password VARCHAR(16), nombreApellido VARCHAR(30), " +
-                "dni VARCHAR(9), email VARCHAR(30), asociado INTEGER, codAct INTEGER, " +
-                "categoria VARCHAR(1), FOREIGN KEY (codAct) REFERENCES ActividadDB (cod_actividad))"
-        db?.execSQL(crearTablaUsr)
-    }
+class BBDDusuario(private val dbHelper: DataBaseHelper) {
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        //db?.execSQL("alter table UsuarioDB add column nombreApellido varchar(30)")
-    }
 
     fun insertar(usr: UsuarioDB):Boolean{
-        val db = this.writableDatabase
+        val db = dbHelper.writableDatabase
         var contenedorValores = ContentValues()
 
         contenedorValores.put("username", usr.username)
@@ -51,7 +39,7 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,7) {
 
     fun leer():MutableList<UsuarioDB>{
         var lista:MutableList<UsuarioDB> = ArrayList()
-        var db =  this.readableDatabase
+        var db =  dbHelper.readableDatabase
         val sql = "select * from UsuarioDB"
         var resultado = db.rawQuery(sql,null)
 
@@ -78,7 +66,7 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,7) {
 
     fun leerUnDato(userName:String):UsuarioDB{
         var usRes:UsuarioDB = UsuarioDB()
-        val db =  this.readableDatabase
+        val db =  dbHelper.readableDatabase
         val sql = "select * from UsuarioDB where username = '${userName}'"
         var resultado = db.rawQuery(sql,null)
         if (resultado.moveToFirst()) {
@@ -101,7 +89,7 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,7) {
 
     fun leerUnDato(userId:Int):UsuarioDB{
         var usRes:UsuarioDB = UsuarioDB()
-        val db =  this.readableDatabase
+        val db =  dbHelper.readableDatabase
         val sql = "select * from UsuarioDB where id = '${userId}'"
         var resultado = db.rawQuery(sql,null)
         if (resultado.moveToFirst()) {
@@ -122,7 +110,7 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,7) {
         return usRes
     }
     fun existeUsrName(username:String): Boolean{
-        val db =  this.readableDatabase
+        val db =  dbHelper.readableDatabase
         val sql = "SELECT * FROM UsuarioDB WHERE username = '${username}'"
         var res: Cursor = db.rawQuery(sql,null)
         //var filasEncontradas:Int = db.count("UsuarioDB","username = ?", arrayOf(username))
@@ -135,7 +123,7 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,7) {
         }
     }
     fun existeEmail(email:String): Boolean{
-        val db =  this.readableDatabase
+        val db =  dbHelper.readableDatabase
         val sql = "SELECT * FROM UsuarioDB WHERE email = '${email}'"
         var res: Cursor = db.rawQuery(sql,null)
         if (res.moveToFirst()) {
@@ -148,7 +136,7 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,7) {
     }
 
     fun actualizar(id:Int, newValues: Map<String, Any?>):Boolean{
-        val db = this.writableDatabase
+        val db = dbHelper.writableDatabase
         val contenedor = ContentValues()
         for ((columna, valor) in newValues) {
             when (valor) {
@@ -170,7 +158,7 @@ class BBDDusuario(contexto: Context): SQLiteOpenHelper(contexto, bbdd, null,7) {
     }
 
     fun borrar( id:Int){
-        val db = this.writableDatabase
+        val db = dbHelper.writableDatabase
         if (id>0) {
             db.delete("UsuarioDB","id=?", arrayOf(id.toString()))
         }

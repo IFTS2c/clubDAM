@@ -10,12 +10,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.club.datos.ActividadDB
 import com.example.club.datos.BBDDactividad
 import com.example.club.datos.BBDDcuota
+import com.example.club.datos.DataBaseHelper
 
 class Comprobante : AppCompatActivity() {
 
-    val bdUsr = BBDDusuario(this)
-    val bdAct = BBDDactividad(this)
-    val bdCuo = BBDDcuota(this)
+    private lateinit var dbHelper: DataBaseHelper
+    private lateinit var bdUs: BBDDusuario
+    private lateinit var bdAct: BBDDactividad
+    private lateinit var bdCuo: BBDDcuota
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,10 @@ class Comprobante : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        dbHelper = DataBaseHelper(this)
+        bdUs = BBDDusuario(dbHelper)
+        bdAct = BBDDactividad(dbHelper)
+        bdCuo = BBDDcuota(dbHelper)
 
         val userId = intent.extras!!.getInt("userId", 0)
         val cod_act = intent.extras!!.getInt("codAct", 0)
@@ -33,7 +39,7 @@ class Comprobante : AppCompatActivity() {
         Log.i("montopagar", "Comprobante antes ${monto}")
         val formaDePago = intent.extras!!.getString("formaPago", "")
 
-        var userSelected = bdUsr.leerUnDato(userId)
+        var userSelected = bdUs.leerUnDato(userId)
         var actividadSelected = bdAct.leerUnDato(cod_act)
 
         var nombreBox = findViewById<TextView>(R.id.userName)

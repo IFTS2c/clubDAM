@@ -15,13 +15,15 @@ import com.example.club.tools.toolsVal
 import androidx.appcompat.app.AlertDialog
 import com.example.club.datos.BBDDactividad
 import com.example.club.datos.BBDDcuota
+import com.example.club.datos.DataBaseHelper
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class UserForm : AppCompatActivity() {
-    val bdUsr = BBDDusuario(this)
-    val bdAct = BBDDactividad(this)
-    val bdCuo = BBDDcuota(this)
+    private lateinit var dbHelper: DataBaseHelper
+    private lateinit var bdUs: BBDDusuario
+    private lateinit var bdAct: BBDDactividad
+    private lateinit var bdCuo: BBDDcuota
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +35,14 @@ class UserForm : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        dbHelper = DataBaseHelper(this)
+        bdUs = BBDDusuario(dbHelper)
+        bdAct = BBDDactividad(dbHelper)
+        bdCuo = BBDDcuota(dbHelper)
 
         val username:String = intent.extras?.getString("username").orEmpty()
         //val nombreApellido:String = intent.extras?.getString("nombreApellido").orEmpty()
-        val userSelected = bdUsr.leerUnDato(username)
+        val userSelected = bdUs.leerUnDato(username)
         val userNameText = findViewById<TextView>(R.id.userName)
         val asociadoUser = findViewById<TextView>(R.id.asociado)
         val actividad = findViewById<TextView>(R.id.actividad)
@@ -121,11 +127,7 @@ class UserForm : AppCompatActivity() {
 
 
     }
-    /*fun leerUnDato(username:String):UsuarioDB{
-        var res:UsuarioDB = bdUsr.leerUnDato(username)
-        Log.i("modulo1",res.toString())
-        return res
-    }*/
+
 
     fun dialogDeuda(context: Context, userId:Int, usrCodAct:Int, deuda:Double){
         val builder = AlertDialog.Builder(context)
@@ -156,7 +158,7 @@ class UserForm : AppCompatActivity() {
         val btnCambiar = view.findViewById<TextView>(R.id.btnCambiarAct)
         val btnCancelar = view.findViewById<TextView>(R.id.btnCancelarAct)
 
-        val usuarioSelected = bdUsr.leerUnDato(userId)
+        val usuarioSelected = bdUs.leerUnDato(userId)
         val actividadSelected = bdAct.leerUnDato(usrCodAct)
 
 
@@ -181,7 +183,7 @@ class UserForm : AppCompatActivity() {
             dialog.dismiss()
         }
         btnCancelar.setOnClickListener {
-            bdUsr.actualizar(usuarioSelected.id, mapOf("codAct" to 1))
+            bdUs.actualizar(usuarioSelected.id, mapOf("codAct" to 1))
             val intent = Intent(context, UserForm::class.java)
             intent.putExtra("username",usuarioSelected.username)
             intent.putExtra("codAct", usrCodAct)
