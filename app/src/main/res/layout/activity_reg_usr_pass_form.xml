@@ -72,7 +72,7 @@
             android:layout_marginRight="48dp"
             android:background="@drawable/input_background"
             android:elevation="15dp"
-            android:inputType="text"
+            android:inputType="textWebPassword"
             android:padding="8dp"
             android:hint="Password"
             android:textAlignment="textStart"
@@ -85,7 +85,7 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/inputPass2"
-            android:inputType="text"
+            android:inputType="textWebPassword"
             android:hint="Password"
             android:textColor="#999999"
             android:textAlignment="textStart"

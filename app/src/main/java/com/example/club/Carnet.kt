@@ -52,7 +52,7 @@ class Carnet : AppCompatActivity() {
         dniBox.text = "DNI: ${usr.dni}"
         asociadoBox.text = if (usr.asociado == true) "Socio -" else "No Socio -"
         idBox.text = "  ID: ${usr.id.toString()}"
-        codActvarBox.text = usr.codAct.toString()
+        codActvarBox.text = "Actividad: ${bdAct.leerUnDato(usr.codAct)?.nombre}"
 
         fun generarQr(){
             var barcodeEncoder : BarcodeEncoder = BarcodeEncoder()

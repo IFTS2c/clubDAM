@@ -114,30 +114,35 @@ class BBDDcuota(private val dbHelper: DataBaseHelper) {
             Log.e("TAG", "Error al ejecutar la consulta: ${e.message}")
         }
     }
-    fun buscarDeudasYVtos(){//}: MutableList<CuotaDB> {
+    fun buscarDeudasYVtos(): MutableList<Deuda> {
         val db = dbHelper.readableDatabase
         var res = db.rawQuery(
-            "SELECT * FROM (SELECT u.nombreApellido, u.email, c.deuda, c.fecha_vto " +
-                    "FROM CuotaDB as c " +
-                    "INNER JOIN UsuarioDB as u ON c.id_usuario = u.id " +
-                    "WHERE deuda > 0.0) ORDER BY (u.nombreApellido)", null
+            "SELECT u.id, u.nombreApellido, u.dni, u.email, c.deuda, c.fecha_vto " +
+                    "FROM UsuarioDB as u " +
+                    "JOIN CuotaDB as c ON u.id = c.id_usuario WHERE c.fecha_vto = (" +
+                    "SELECT MAX(fecha_vto) FROM CuotaDB WHERE id_usuario = u.id) " +
+                    "GROUP BY u.id, u.nombreApellido HAVING c.deuda > 0.0", null
         )
 
-
+        var listaVto:MutableList<Deuda> = mutableListOf()
         if (res.moveToFirst()) {
             do {
+                val userId = res.getInt(res.getColumnIndexOrThrow("id"))
                 val nombreApellido = res.getString(res.getColumnIndexOrThrow("nombreApellido"))
+                val dni = res.getString((res.getColumnIndexOrThrow("dni")))
                 val email = res.getString(res.getColumnIndexOrThrow("email"))
                 val deuda = res.getDouble(res.getColumnIndexOrThrow("deuda"))
                 val fechaVto = res.getString(res.getColumnIndexOrThrow("fecha_vto"))
-
+                var d = Deuda(userId, nombreApellido,dni,email,deuda,fechaVto)
+                listaVto.add(d)
                 Log.d(
                     "TAG",
-                    "Nombre y Apellido: $nombreApellido, Email: $email, Deuda: $deuda, Fecha Vto: $fechaVto"
+                    "Id: $userId, Nombre y Apellido: $nombreApellido, Dni: $dni, Email: $email, Deuda: $deuda, Fecha Vto: $fechaVto"
                 )
             } while (res.moveToNext())
         }
         res.close()
+        return listaVto
     }
 //        var listaCuotas:MutableList<CuotaDB> = mutableListOf()
 //        return try {

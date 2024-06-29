@@ -75,7 +75,7 @@ class UserForm : AppCompatActivity() {
                     if (deuda != null && deuda > 0.0 && userSelected.codAct == 1) { // > 10) {
                         dialogDeuda(this@UserForm, userSelected.id, userSelected.codAct, deuda)
                     }
-                    if (userSelected.codAct > 1 && fechaHoy.dayOfMonth > 27){//in 1 .. 11) {
+                    if (userSelected.codAct > 1 && fechaHoy.dayOfMonth > 27){ //in 1 .. 11) {
                         var deudaParaDialog = 0.0
                         if (deuda != null && deuda > 0.0){
                             deudaParaDialog = deuda

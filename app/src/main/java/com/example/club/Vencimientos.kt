@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.club.adapter.ActAdapter
+import com.example.club.adapter.VtoAdapter
 import com.example.club.datos.BBDDactividad
 import com.example.club.datos.BBDDcuota
 import com.example.club.datos.DataBaseHelper
@@ -33,7 +34,7 @@ class Vencimientos : AppCompatActivity() {
         bdAct = BBDDactividad(dbHelper)
         bdCuo = BBDDcuota(dbHelper)
 
-        //initVencimientosRecyclerView()
+        initVencimientosRecyclerView()
 
         var adminName = intent.getStringExtra("adminName")
         val tvNombre = findViewById<TextView>(R.id.userName)
@@ -43,11 +44,11 @@ class Vencimientos : AppCompatActivity() {
         tvasoc.text = "Administrador"
     }
 
-//    private fun initVencimientosRecyclerView(){
-//
-//        val vencimientosList = bdCuota
-//        val recyclerView = findViewById<RecyclerView>(R.id.rvActividades)
-//        recyclerView.layoutManager = GridLayoutManager(this, 2)
-//        recyclerView.adapter = ActAdapter(vencimientosList)
-//    }
+    private fun initVencimientosRecyclerView(){
+
+        val vencimientosList = bdCuo.buscarDeudasYVtos()
+        val recyclerView = findViewById<RecyclerView>(R.id.rvVencimientos)
+        recyclerView.layoutManager = GridLayoutManager(this, 1)
+        recyclerView.adapter = VtoAdapter(vencimientosList)
+    }
 }

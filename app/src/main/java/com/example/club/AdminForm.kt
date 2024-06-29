@@ -96,11 +96,10 @@ class AdminForm : AppCompatActivity() {
         }
 
         btnListaVtos.setOnClickListener{
-            // bdCuo.venceHoy()
-            bdCuo.buscarDeudasYVtos()
-//            val intent = Intent(this, Vencimientos::class.java)
-//            intent.putExtra("adminName", nombreApellido)
-//            startActivity(intent)
+            bdCuo.venceHoy()
+            val intent = Intent(this, Vencimientos::class.java)
+            intent.putExtra("adminName", nombreApellido)
+            startActivity(intent)
         }
 
 
