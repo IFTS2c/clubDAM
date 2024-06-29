@@ -90,33 +90,47 @@ class Pagar : AppCompatActivity() {
 //                montoBox.text = "Monto: $ ${monto}0"
                 Toast.makeText(this, "Tienes una cuota vigente, se vence ${cuota.fecha_vto}", Toast.LENGTH_SHORT).show()
                 if (!userSelected.asociado){
+                    Log.i("montopagar", "2 antes ${monto}")
                     monto = pagaNoSocio(userSelected, actividadSelected)
+                    Log.i("montopagar", "2 despues ${monto}")
                 } else {
+                    Log.i("montopagar", "2 antes ${monto}")
                     monto = pagaSocio(userSelected, actividadSelected)
+                    Log.i("montopagar", "2 despues ${monto}")
                 }
 
             } else {
+                //3
                 if (!userSelected.asociado){
+                    Log.i("montopagar", "3 antes ${monto}")
                     monto = pagaNoSocio(userSelected, actividadSelected)
+                    Log.i("montopagar", "3 antes ${monto}")
                 } else {
+                    Log.i("montopagar", "3 antes ${monto}")
                     monto = pagaSocio(userSelected, actividadSelected)
+                    Log.i("montopagar", "3 antes ${monto}")
                 }
             }
         } else {
+            //4
             if (actividadSelected != null){
                 if (!userSelected.asociado){
+                    Log.i("montopagar", "4 antes ${monto}")
                     monto = pagaNoSocio(userSelected, actividadSelected)
+                    Log.i("montopagar", "4 despues ${monto}")
                 } else {
+                    Log.i("montopagar", "4 antes ${monto}")
                     monto = pagaSocio(userSelected, actividadSelected)
+                    Log.i("montopagar", "4 despues ${monto}")
                 }
                 //montoBox.text = "Monto: $ ${monto}0"
             }
         }
 
         btnPagar.setOnClickListener {
-            Log.i("actUsr", "antes ${userSelected.codAct}")
+            Log.i("montopagar", "Pagar antes ${monto}")
             pagar(userSelected.id, actividadSelected.cod_act, monto, formaDePago)
-            Log.i("actUsr", "despues ${userSelected.codAct}")
+            Log.i("montopagar", "Pagar despues ${monto}")
         }
         btnAtras.setOnClickListener {
             finishAfterTransition()

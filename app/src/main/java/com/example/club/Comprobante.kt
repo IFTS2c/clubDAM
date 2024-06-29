@@ -1,6 +1,7 @@
 package com.example.club
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +29,8 @@ class Comprobante : AppCompatActivity() {
 
         val userId = intent.extras!!.getInt("userId", 0)
         val cod_act = intent.extras!!.getInt("codAct", 0)
-        val monto = intent.extras!!.getString("monto", "")
+        val monto = intent.extras!!.getDouble("monto", 0.0)
+        Log.i("montopagar", "Comprobante antes ${monto}")
         val formaDePago = intent.extras!!.getString("formaPago", "")
 
         var userSelected = bdUsr.leerUnDato(userId)
@@ -45,7 +47,7 @@ class Comprobante : AppCompatActivity() {
         nombreBox.text = userSelected.nombreApellido
         asociadBox.text = if(userSelected.asociado) "Socio" else "No Socio"
         actividad.text = actividadSelected?.nombre
-        montoTv.text = monto
+        montoTv.text = "Monto: $ ${monto}"
         formaDePagoTv.text = formaDePago
 
     }
