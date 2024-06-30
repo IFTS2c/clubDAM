@@ -69,13 +69,13 @@ class UserForm : AppCompatActivity() {
                 Log.i("fecha", ".fecha_vto < fechaHoy]] ${fechaHoy.isBefore(fechaVtoCuota)}")
                 if (!fechaHoy.isBefore(fechaVtoCuota)){
 
-                    if (deuda != null && deuda > 0.0 && fechaHoy.dayOfMonth in 10 .. 27) { // > 10) {
+                    if (deuda != null && deuda > 0.0 && fechaHoy.dayOfMonth > 10) {
                         dialogDeuda(this@UserForm, userSelected.id, userSelected.codAct, deuda)
                     }
-                    if (deuda != null && deuda > 0.0 && userSelected.codAct == 1) { // > 10) {
+                    if (deuda != null && deuda > 0.0 && userSelected.codAct > 10) {
                         dialogDeuda(this@UserForm, userSelected.id, userSelected.codAct, deuda)
                     }
-                    if (userSelected.codAct > 1 && fechaHoy.dayOfMonth > 27){ //in 1 .. 11) {
+                    if (userSelected.codAct > 1 && fechaHoy.dayOfMonth in 1 .. 11) {
                         var deudaParaDialog = 0.0
                         if (deuda != null && deuda > 0.0){
                             deudaParaDialog = deuda
